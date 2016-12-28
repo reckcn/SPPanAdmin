@@ -12,6 +12,7 @@
 		<result column="type" property="type" />
 		<result column="source_url" property="sourceUrl" />
 		<result column="level" property="level" />
+		<result column="sort" property="sort" />
 		<result column="icon" property="icon" />
 		<result column="is_hide" property="isHide" />
 		<result column="description" property="description" />
@@ -21,6 +22,6 @@
 
     <!-- 通用查询结果列-->
     <sql id="Base_Column_List">
-        id, parent_id AS parentId, name, source_key AS sourceKey, type, source_url AS sourceUrl, level, icon, is_hide AS isHide, description, create_time AS createTime, update_time AS updateTime
+        id, parent_id AS parentId, name, source_key AS sourceKey, type, source_url AS sourceUrl, level, sort, icon, is_hide AS isHide, description, create_time AS createTime, update_time AS updateTime
     </sql>
 </mapper>

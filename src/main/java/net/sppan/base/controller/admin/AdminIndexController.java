@@ -9,8 +9,8 @@ import net.sppan.base.controller.BaseController;
 @RequestMapping("/admin")
 public class AdminIndexController extends BaseController {
 
-	@RequestMapping("/index")
-	public String index(){
+	@RequestMapping(value = { "/index", "/" })
+	public String index() {
 		return "admin/index";
 	}
 }

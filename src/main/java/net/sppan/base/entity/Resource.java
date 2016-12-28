@@ -62,6 +62,11 @@ public class Resource extends Model<Resource> {
 	private Integer level;
 
 	/**
+	 * 排序
+	 */
+	private Integer sort;
+
+	/**
 	 * 图标
 	 */
 	private String icon;
@@ -145,6 +150,14 @@ public class Resource extends Model<Resource> {
 
 	public void setLevel(Integer level) {
 		this.level = level;
+	}
+
+	public Integer getSort() {
+		return sort;
+	}
+
+	public void setSort(Integer sort) {
+		this.sort = sort;
 	}
 
 	public String getIcon() {

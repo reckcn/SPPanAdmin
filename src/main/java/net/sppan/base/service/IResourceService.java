@@ -4,6 +4,7 @@ import java.util.List;
 
 import net.sppan.base.entity.Resource;
 import net.sppan.base.service.support.IBaseService;
+import net.sppan.base.vo.Navs;
 
 /**
  * <p>
@@ -14,5 +15,11 @@ import net.sppan.base.service.support.IBaseService;
  * @since 2016-12-28
  */
 public interface IResourceService extends IBaseService<Resource> {
-	public List<Resource> selectTree();
+	
+	/**
+	 * 获取权限树
+	 * @return
+	 */
+	public List<Navs> selectTree();
+	
 }

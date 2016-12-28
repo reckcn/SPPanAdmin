@@ -7,6 +7,7 @@ import net.sppan.base.entity.Resource;
 import net.sppan.base.mapper.ResourceMapper;
 import net.sppan.base.service.IResourceService;
 import net.sppan.base.service.support.impl.BaseServiceImpl;
+import net.sppan.base.vo.Navs;
 
 import org.springframework.stereotype.Service;
 
@@ -25,15 +26,20 @@ import com.baomidou.mybatisplus.mapper.Wrapper;
 public class ResourceServiceImpl extends BaseServiceImpl<ResourceMapper, Resource> implements IResourceService {
 	
 	@Override
-	public List<Resource> selectTree() {
-		List<Resource> list = new ArrayList<Resource>();
+	public List<Navs> selectTree() {
+		List<Navs> list = new ArrayList<Navs>();
 		Wrapper<Resource> wrapper = new EntityWrapper<Resource>();
 		wrapper.isNull("parent_id");
 		wrapper.orderBy("sort", true);
 		List<Resource> root = baseMapper.selectList(wrapper);
+		Navs navs;
 		for (Resource authMenu : root) {
-			list.add(authMenu);
-			list.addAll(getSubMenus(authMenu));
+			navs = new Navs();
+			navs.setTitle(authMenu.getName());
+			navs.setIcon(authMenu.getIcon());
+			navs.setHref(authMenu.getSourceUrl());
+			navs.setChildren(getSubMenus(authMenu));
+			list.add(navs);
 		}
 		return list;
 	}
@@ -43,18 +49,22 @@ public class ResourceServiceImpl extends BaseServiceImpl<ResourceMapper, Resourc
 	 * @param root
 	 * @return
 	 */
-	private List<Resource> getSubMenus(Resource root){
-		List<Resource> list = new ArrayList<Resource>();
+	private List<Navs> getSubMenus(Resource root){
+		List<Navs> list = new ArrayList<Navs>();
 		Wrapper<Resource> wrapper = new EntityWrapper<Resource>();
 		wrapper.eq("parent_id", root.getId());
 		wrapper.orderBy("sort", true);
 		List<Resource> one = baseMapper.selectList(wrapper);
+		Navs navs;
 		for (Resource authMenu : one) {
-			list.add(authMenu);
-			list.addAll(getSubMenus(authMenu));
+			navs = new Navs();
+			navs.setTitle(authMenu.getName());
+			navs.setIcon(authMenu.getIcon());
+			navs.setHref(authMenu.getSourceUrl());
+			navs.setChildren(getSubMenus(authMenu));
+			list.add(navs);
 		}
 		return list;
 	}
-
 	
 }

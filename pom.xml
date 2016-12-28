@@ -132,7 +132,7 @@
 						<superServiceImplClass>net.sppan.base.service.support.impl.BaseServiceImpl</superServiceImplClass>
 						<!-- 要包含的表 与exclude 二选一配置,property可以配置多个 -->
 						<include>
-							<property>tb_user</property>
+							<property>tb_resource</property>
 						</include>
 						<!-- 要排除的表 -->
 						<!--<exclude> -->
