@@ -21,7 +21,7 @@ public class ResourceController extends BaseController{
 	@RequestMapping("/menu")
 	@ResponseBody
 	public List<Navs> menu(){
-		List<Navs> list = resourceService.selectTree();
+		List<Navs> list = resourceService.selectTree(1);
 		return list;
 	}
 	

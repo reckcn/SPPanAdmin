@@ -20,6 +20,6 @@ public interface IResourceService extends IBaseService<Resource> {
 	 * 获取权限树
 	 * @return
 	 */
-	public List<Navs> selectTree();
+	public List<Navs> selectTree(Integer roleId);
 	
 }
