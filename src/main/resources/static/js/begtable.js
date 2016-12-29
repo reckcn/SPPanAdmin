@@ -61,6 +61,7 @@ layui.define(['layer', 'laypage', 'icheck'], function(exports) {
 		var _that = this;
 		var _config = _that.config;
 		var elem = _config.elem;
+		var url = _config.url;
 		if(typeof(elem) !== 'string' && typeof(elem) !== 'object') {
 			throwError('elem参数未定义或设置出错，具体设置格式请参考文档API.');
 		}
@@ -100,6 +101,18 @@ layui.define(['layer', 'laypage', 'icheck'], function(exports) {
 		theadTemp += '</tr></thead>';
 		var tbodyTemp = '<tbody>';
 		var data = _config.data;
+		var type = _config.type;
+		if(url !== undefined){
+			$.ajax({
+				   type: type,
+				   url: url,
+				   dataType: "json",
+				   async: false,
+				   success: function(msg){
+					   data = msg;
+				   }
+				});
+		}
 		if(data !== undefined && typeof(data) === 'object') {
 			for(var i = 0; i < data.length; i++) {
 				var tr = '<tr>';

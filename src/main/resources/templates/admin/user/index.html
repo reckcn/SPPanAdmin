@@ -49,21 +49,6 @@
 					$ = layui.jquery,
 					laypage = layui.laypage;
 
-				laypage({
-					cont: $('.beg-table-paged'),
-					pages: 25 //总页数
-						,
-					groups: 5 //连续显示分页数
-						,
-					jump: function(obj, first) {
-						//得到了当前页，用于向服务端请求对应数据
-						var curr = obj.curr;
-						if(!first) {
-							//layer.msg('第 '+ obj.curr +' 页');
-						}
-					}
-				});
-
 				var columns = [{
 					title: 'ID',
 					field: 'id'
