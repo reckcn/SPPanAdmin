@@ -6,6 +6,10 @@ import net.sppan.base.controller.BaseController;
 import net.sppan.base.entity.User;
 import net.sppan.base.service.IUserService;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -33,8 +37,9 @@ public class LoginController extends BaseController {
 			return JsonResult.failure("用户名或者密码不能为空");
 		}
 		try {
-			User user = userService.login(username,password);
-			WebUtils.loginUser(request, response, user, rememberMe);
+			Subject subject = SecurityUtils.getSubject();
+			UsernamePasswordToken token = new UsernamePasswordToken(username, password);
+			subject.login(token);
 		} catch (Exception e) {
 			return JsonResult.failure(e.getMessage());
 		}

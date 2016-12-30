@@ -25,4 +25,20 @@
     <sql id="Base_Column_List">
         id, user_name AS userName, nick_name AS nickName, password, sex, birthday, telephone, email, address, delete_status AS deleteStatus, locked, description, create_time AS createTime, update_time AS updateTime
     </sql>
+    
+    <select id="selectResource" parameterType="string" resultType="string">
+    	select 
+		  source_key 
+		from
+		  tb_resource as r,
+		  tb_resources_role as rr,
+		  tb_role as tr,
+		  tb_role_user ru,
+		  tb_user u 
+		where u.user_name = #{username} 
+		  and u.id = ru.u_id
+		  and ru.r_id = tr.id
+		  and tr.id = rr.r_id
+		  and rr.s_id = r.id
+    </select>
 </mapper>

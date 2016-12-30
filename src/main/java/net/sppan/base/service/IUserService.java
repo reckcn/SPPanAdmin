@@ -1,5 +1,7 @@
 package net.sppan.base.service;
 
+import java.util.List;
+
 import net.sppan.base.entity.User;
 import net.sppan.base.service.support.IBaseService;
 
@@ -20,5 +22,12 @@ public interface IUserService extends IBaseService<User> {
 	 * @return
 	 */
 	User login(String username, String password);
+
+	/**
+	 * 获取用户的所有资源
+	 * @param username
+	 * @return
+	 */
+	List<String> selectResource(String username);
 	
 }

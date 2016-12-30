@@ -1,11 +1,14 @@
 package net.sppan.base.service.impl;
 
+import java.util.List;
+
 import net.sppan.base.common.utils.MD5Utils;
 import net.sppan.base.entity.User;
 import net.sppan.base.mapper.UserMapper;
 import net.sppan.base.service.IUserService;
 import net.sppan.base.service.support.impl.BaseServiceImpl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -20,6 +23,9 @@ import org.springframework.util.Assert;
 @Service
 public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implements IUserService {
 
+	@Autowired
+	private UserMapper userMapper;
+	
 	@Override
 	public User login(String username, String password) {
 		User condition = new User();
@@ -30,6 +36,11 @@ public class UserServiceImpl extends BaseServiceImpl<UserMapper, User> implement
 		
 		Assert.isTrue(MD5Utils.md5(password).equals(user.getPassword()), "密码不正确");
 		return user;
+	}
+
+	@Override
+	public List<String> selectResource(String username) {
+		return userMapper.selectResource(username);
 	}
 	
 }

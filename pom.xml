@@ -14,6 +14,7 @@
 		<mybatis-plus.version>2.0</mybatis-plus.version>
 		<fastjson.version>1.2.17</fastjson.version>
 		<mybatis-ehcache.version>1.0.3</mybatis-ehcache.version>
+		<shiro.version>1.2.4</shiro.version>
 	</properties>
 
 	<!-- Inherit defaults from Spring Boot -->
@@ -71,6 +72,10 @@
 		</dependency>
 		<!--ehcache begin -->
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>net.sf.ehcache</groupId>
 			<artifactId>ehcache</artifactId>
 		</dependency>
@@ -80,6 +85,23 @@
 			<version>${mybatis-ehcache.version}</version>
 		</dependency>
 		<!--ehcache end -->
+		
+		<!-- shiro -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<finalName>base</finalName>
