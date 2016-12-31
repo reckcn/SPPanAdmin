@@ -63,7 +63,24 @@ public class ShiroConfig {
 		
 		filterChainDefinitionMap.put("/admin/login", "anon");
 		
-		filterChainDefinitionMap.put("/admin/user/index", "perms[system:user]");
+		filterChainDefinitionMap.put("/admin/user/index", "perms[system:user:index]");
+		filterChainDefinitionMap.put("/admin/user/add", "perms[system:user:add]");
+		filterChainDefinitionMap.put("/admin/user/edit", "perms[system:user:edit]");
+		filterChainDefinitionMap.put("/admin/user/deleteBatch", "perms[system:user:deleteBatch]");
+		filterChainDefinitionMap.put("/admin/user/resetPassword", "perms[system:user:resetPassword]");
+		
+		filterChainDefinitionMap.put("/admin/role/index", "perms[system:role:index]");
+		filterChainDefinitionMap.put("/admin/role/add", "perms[system:role:add]");
+		filterChainDefinitionMap.put("/admin/role/edit", "perms[system:role:edit]");
+		filterChainDefinitionMap.put("/admin/role/deleteBatch", "perms[system:role:deleteBatch]");
+		filterChainDefinitionMap.put("/admin/role/permission", "perms[system:role:permission]");
+		
+		filterChainDefinitionMap.put("/admin/resource/index", "perms[system:resource:index]");
+		filterChainDefinitionMap.put("/admin/resource/add", "perms[system:resource:add]");
+		filterChainDefinitionMap.put("/admin/resource/edit", "perms[system:resource:edit]");
+		filterChainDefinitionMap.put("/admin/resource/deleteBatch", "perms[system:resource:deleteBatch]");
+		
+		
 		filterChainDefinitionMap.put("/**", "authc");
 		shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
 		return shiroFilter;
