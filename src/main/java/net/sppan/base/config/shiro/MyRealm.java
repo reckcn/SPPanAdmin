@@ -39,9 +39,9 @@ public class MyRealm extends AuthorizingRealm {
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
 			PrincipalCollection principals) {
-		String username = (String) principals.getPrimaryPrincipal();
+		User user = (User) principals.getPrimaryPrincipal();
 		SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-		List<String> resources = userService.selectResource(username);
+		List<String> resources = userService.selectResource(user.getUserName());
 		Set<String> shiroPermissions = new HashSet<>();
 		for (String resource : resources) {
 			shiroPermissions.add(resource);
