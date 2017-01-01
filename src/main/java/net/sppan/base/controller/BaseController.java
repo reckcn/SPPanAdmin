@@ -11,6 +11,8 @@ import net.sppan.base.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.baomidou.mybatisplus.plugins.Page;
+
 public class BaseController {
 	@Autowired
 	protected HttpServletRequest request;
@@ -57,6 +59,18 @@ public class BaseController {
 			return userService.selectById(userId);
 		}
 		return null;
+	}
+    
+	/**
+	 * 获取分页对象
+	 * @param pn 当前页
+	 * @return
+	 */
+	protected <T> Page<T> getPage(Integer pn) {
+		if(pn == null){
+			pn = 1;
+		}
+		return new Page<T>(pn,10);
 	}
 
 }

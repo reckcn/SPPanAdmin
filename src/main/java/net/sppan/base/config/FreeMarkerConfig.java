@@ -16,6 +16,8 @@ public class FreeMarkerConfig {
     @PostConstruct
     public void setSharedVariable() {
     	try {
+    		configuration.setDateFormat("yyyy/MM/dd");  
+            configuration.setDateTimeFormat("yyyy-MM-dd HH:mm:ss");
 			configuration.setSharedVariable("testSharedVariable", "111111111111111111111");
 		} catch (TemplateModelException e) {
 			e.printStackTrace();
