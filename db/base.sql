@@ -125,7 +125,7 @@ CREATE TABLE `tb_user` (
 
 /*Data for the table `tb_user` */
 
-insert  into `tb_user`(`id`,`user_name`,`nick_name`,`password`,`sex`,`birthday`,`telephone`,`email`,`address`,`delete_status`,`locked`,`description`,`create_time`,`update_time`) values (1,'admin','whoismy8023@163.com','96e79218965eb72c92a549dd5a330112',1,'2016-07-21','15923935295','whoismy8023@163.com','成都',0,0,'哈哈这就是我 ','2016-07-21 17:29:19','2016-07-21 17:29:22');
+insert  into `tb_user`(`id`,`user_name`,`nick_name`,`password`,`sex`,`birthday`,`telephone`,`email`,`address`,`delete_status`,`locked`,`description`,`create_time`,`update_time`) values (1,'admin','whoismy8023@163.com','3931MUEQD1939MQMLM4AISPVNE',1,'2016-07-21','15923935295','whoismy8023@163.com','成都',0,0,'哈哈这就是我 ','2016-07-21 17:29:19','2016-07-21 17:29:22');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
