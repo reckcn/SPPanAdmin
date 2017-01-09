@@ -55,11 +55,7 @@ public class ShiroConfig {
 		shiroFilter.setSuccessUrl("/admin/index");
 		shiroFilter.setUnauthorizedUrl("/previlige/no");
 		Map<String, String> filterChainDefinitionMap = new HashMap<String, String>();
-		filterChainDefinitionMap.put("/css/**", "anon");
-		filterChainDefinitionMap.put("/datas/**", "anon");
-		filterChainDefinitionMap.put("/images/**", "anon");
-		filterChainDefinitionMap.put("/js/**", "anon");
-		filterChainDefinitionMap.put("/plugins/**", "anon");
+		filterChainDefinitionMap.put("/assets/**", "anon");
 		
 		filterChainDefinitionMap.put("/admin/login", "anon");
 		
