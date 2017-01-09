@@ -13,21 +13,6 @@ import net.sppan.base.service.support.IBaseService;
  * @author SPPan
  * @since 2016-12-28
  */
-public interface IUserService extends IBaseService<User> {
+public interface IUserService extends IBaseService<User, Integer> {
 
-	/**
-	 * 用户登录
-	 * @param username
-	 * @param password
-	 * @return
-	 */
-	User login(String username, String password);
-
-	/**
-	 * 获取用户的所有资源
-	 * @param username
-	 * @return
-	 */
-	List<String> selectResource(String username);
-	
 }

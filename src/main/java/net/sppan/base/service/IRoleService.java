@@ -11,6 +11,6 @@ import net.sppan.base.service.support.IBaseService;
  * @author SPPan
  * @since 2016-12-28
  */
-public interface IRoleService extends IBaseService<Role> {
+public interface IRoleService extends IBaseService<Role,Integer> {
 	
 }

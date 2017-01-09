@@ -1,13 +1,20 @@
 package net.sppan.base.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import net.sppan.base.entity.support.BaseEntity;
 
 /**
  * <p>
@@ -17,22 +24,19 @@ import com.baomidou.mybatisplus.enums.IdType;
  * @author SPPan
  * @since 2016-12-28
  */
-@TableName("tb_resource")
-public class Resource extends Model<Resource> {
+@Entity
+@Table(name = "tb_resource")
+public class Resource extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 资源id
 	 */
-	@TableId(type = IdType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", nullable = false)
 	private Integer id;
-
-	/**
-	 * 资源父id
-	 */
-	@TableField(value="parent_id")
-	private Integer parentId;
 
 	/**
 	 * 资源名称
@@ -42,7 +46,6 @@ public class Resource extends Model<Resource> {
 	/**
 	 * 资源唯一标识
 	 */
-	@TableField(value="source_key")
 	private String sourceKey;
 
 	/**
@@ -53,7 +56,6 @@ public class Resource extends Model<Resource> {
 	/**
 	 * 资源url
 	 */
-	@TableField(value="source_url")
 	private String sourceUrl;
 
 	/**
@@ -74,7 +76,6 @@ public class Resource extends Model<Resource> {
 	/**
 	 * 是否隐藏
 	 */
-	@TableField(value="is_hide")
 	private Integer isHide;
 
 	/**
@@ -85,16 +86,22 @@ public class Resource extends Model<Resource> {
 	/**
 	 * 创建时间
 	 */
-	@TableField(value="create_time")
 	private Date createTime;
 
 	/**
 	 * 更新时间
 	 */
-	@TableField(value="update_time")
 	private Date updateTime;
 
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "parent_id")
+	private Resource parent;
 
+	@ManyToMany(mappedBy = "resources")
+	private java.util.Set<Role> roles;
+
+	@OneToMany(mappedBy = "parent")
+	private java.util.Set<Resource> child;
 
 	public Integer getId() {
 		return id;
@@ -102,14 +109,6 @@ public class Resource extends Model<Resource> {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public Integer getParentId() {
-		return parentId;
-	}
-
-	public void setParentId(Integer parentId) {
-		this.parentId = parentId;
 	}
 
 	public String getName() {
@@ -200,9 +199,28 @@ public class Resource extends Model<Resource> {
 		this.updateTime = updateTime;
 	}
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
+	public Resource getParent() {
+		return parent;
+	}
+
+	public void setParent(Resource parent) {
+		this.parent = parent;
+	}
+
+	public java.util.Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(java.util.Set<Role> roles) {
+		this.roles = roles;
+	}
+
+	public java.util.Set<Resource> getChild() {
+		return child;
+	}
+
+	public void setChild(java.util.Set<Resource> child) {
+		this.child = child;
 	}
 
 }

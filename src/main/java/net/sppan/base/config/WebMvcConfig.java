@@ -6,9 +6,12 @@ import java.util.List;
 import net.sppan.base.config.intercepter.CommonIntercepter;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.servlet.FilterRegistrationBean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.orm.jpa.support.OpenEntityManagerInViewFilter;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
@@ -71,6 +74,15 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		registry.addInterceptor(commonIntercepter).addPathPatterns("/**");
 		super.addInterceptors(registry);
 	}
+	
+    @Bean
+    public FilterRegistrationBean registFilter() {
+        FilterRegistrationBean registration = new FilterRegistrationBean();
+        registration.setFilter(new OpenEntityManagerInViewFilter());
+        registration.addUrlPatterns("/*");
+        registration.setOrder(1);
+        return registration;
+    }
 	
 	
 }

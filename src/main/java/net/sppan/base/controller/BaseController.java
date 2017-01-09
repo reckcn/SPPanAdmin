@@ -5,13 +5,9 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import net.sppan.base.common.utils.WebUtils;
-import net.sppan.base.entity.User;
 import net.sppan.base.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
-import com.baomidou.mybatisplus.plugins.Page;
 
 public class BaseController {
 	@Autowired
@@ -49,28 +45,5 @@ public class BaseController {
         return null;
     }
     
-    /**
-     * 获取当前登录的用户
-     * @return
-     */
-    protected User currentUser() {
-		Long userId = WebUtils.currentUser(request, response);
-		if(userId != null){
-			return userService.selectById(userId);
-		}
-		return null;
-	}
-    
-	/**
-	 * 获取分页对象
-	 * @param pn 当前页
-	 * @return
-	 */
-	protected <T> Page<T> getPage(Integer pn) {
-		if(pn == null){
-			pn = 1;
-		}
-		return new Page<T>(pn,10);
-	}
 
 }

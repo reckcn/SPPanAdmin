@@ -1,0 +1,3 @@
+insert  into `tb_role`(`id`,`create_time`,`description`,`key_code`,`name`,`status`,`update_time`) values (1,'2017-01-09 17:25:30','超级管理员','administrator','administrator',1,'2017-01-09 17:26:25');
+insert  into `tb_user`(`id`,`address`,`birthday`,`create_time`,`delete_status`,`description`,`email`,`locked`,`nick_name`,`password`,`sex`,`telephone`,`update_time`,`user_name`) values (1,'成都','2017-01-09 17:26:39','2017-01-09 17:26:41',0,'超级管理员','whoismy8023@163.com',NULL,'0','3931MUEQD1939MQMLM4AISPVNE',1,'15923935295','2017-01-09 17:27:11','admin');
+insert  into `tb_user_role`(`user_id`,`role_id`) values (1,1);

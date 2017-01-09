@@ -1,13 +1,20 @@
 package net.sppan.base.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import net.sppan.base.entity.support.BaseEntity;
 
 /**
  * <p>
@@ -17,15 +24,21 @@ import com.baomidou.mybatisplus.enums.IdType;
  * @author SPPan
  * @since 2016-12-28
  */
-@TableName("tb_role")
-public class Role extends Model<Role> {
+@Entity
+@Table(name = "tb_role")
+public class Role extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -1894163644285296223L;
 
 	/**
 	 * 角色id
 	 */
-	@TableId(type = IdType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", nullable = false)
 	private Integer id;
 
 	/**
@@ -36,7 +49,7 @@ public class Role extends Model<Role> {
 	/**
 	 * 角色key
 	 */
-	private String key;
+	private String keyCode;
 
 	/**
 	 * 角色状态,0：正常；1：删除
@@ -51,16 +64,19 @@ public class Role extends Model<Role> {
 	/**
 	 * 创建时间
 	 */
-	@TableField(value="create_time")
 	private Date createTime;
 
 	/**
 	 * 更新时间
 	 */
-	@TableField(value="update_time")
 	private Date updateTime;
 
+	@ManyToMany(mappedBy = "roles")
+	private java.util.Set<User> users;
 
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@JoinTable(name = "tb_role_resource", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "resource_id") })
+	private java.util.Set<Resource> resources;
 
 	public Integer getId() {
 		return id;
@@ -78,12 +94,12 @@ public class Role extends Model<Role> {
 		this.name = name;
 	}
 
-	public String getKey() {
-		return key;
+	public String getKeyCode() {
+		return keyCode;
 	}
 
-	public void setKey(String key) {
-		this.key = key;
+	public void setKeyCode(String keyCode) {
+		this.keyCode = keyCode;
 	}
 
 	public Integer getStatus() {
@@ -118,9 +134,20 @@ public class Role extends Model<Role> {
 		this.updateTime = updateTime;
 	}
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
+	public java.util.Set<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(java.util.Set<User> users) {
+		this.users = users;
+	}
+
+	public java.util.Set<Resource> getResources() {
+		return resources;
+	}
+
+	public void setResources(java.util.Set<Resource> resources) {
+		this.resources = resources;
 	}
 
 }

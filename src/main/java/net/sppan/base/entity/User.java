@@ -1,13 +1,20 @@
 package net.sppan.base.entity;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import com.baomidou.mybatisplus.activerecord.Model;
-import com.baomidou.mybatisplus.annotations.TableField;
-import com.baomidou.mybatisplus.annotations.TableId;
-import com.baomidou.mybatisplus.annotations.TableName;
-import com.baomidou.mybatisplus.enums.IdType;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+
+import net.sppan.base.entity.support.BaseEntity;
 
 /**
  * <p>
@@ -17,27 +24,28 @@ import com.baomidou.mybatisplus.enums.IdType;
  * @author SPPan
  * @since 2016-12-28
  */
-@TableName("tb_user")
-public class User extends Model<User> {
+@Entity
+@Table(name = "tb_user")
+public class User extends BaseEntity {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * 用户id
 	 */
-	@TableId(type = IdType.AUTO)
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id", nullable = false)
 	private Integer id;
 
 	/**
 	 * 账户名
 	 */
-	@TableField(value="user_name")
 	private String userName;
 
 	/**
 	 * 昵称
 	 */
-	@TableField(value="nick_name")
 	private String nickName;
 
 	/**
@@ -47,6 +55,7 @@ public class User extends Model<User> {
 
 	/**
 	 * 性别
+	 * 0 女 1 男
 	 */
 	private Integer sex;
 
@@ -72,12 +81,14 @@ public class User extends Model<User> {
 
 	/**
 	 * 逻辑删除状态
+	 * 0 未删除 1 删除
 	 */
-	@TableField(value="delete_status")
 	private Integer deleteStatus;
 
 	/**
 	 * 是否锁定
+	 * 
+	 * 0 未锁定 1 锁定
 	 */
 	private Integer locked;
 
@@ -89,16 +100,17 @@ public class User extends Model<User> {
 	/**
 	 * 创建时间
 	 */
-	@TableField(value="create_time")
 	private Date createTime;
 
 	/**
 	 * 更新时间
 	 */
-	@TableField(value="update_time")
+	@Column(name = "update_time")
 	private Date updateTime;
 
-
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@JoinTable(name = "tb_user_role", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = { @JoinColumn(name = "role_id") })
+	private java.util.Set<Role> roles;
 
 	public Integer getId() {
 		return id;
@@ -212,9 +224,12 @@ public class User extends Model<User> {
 		this.updateTime = updateTime;
 	}
 
-	@Override
-	protected Serializable pkVal() {
-		return this.id;
+	public java.util.Set<Role> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(java.util.Set<Role> roles) {
+		this.roles = roles;
 	}
 
 }
