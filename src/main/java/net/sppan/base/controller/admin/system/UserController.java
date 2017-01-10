@@ -32,7 +32,8 @@ public class UserController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
-	public boolean edit(User user) {
+	public boolean edit(User user,String oper) {
+		System.out.println(oper);
 		System.out.println(user.toString());
 		return true;
 	}

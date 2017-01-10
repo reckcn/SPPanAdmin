@@ -213,29 +213,10 @@
                 pager: "#pager_list",
                 viewrecords: true,
                 caption: "用户列表",
-                add: true,
-                edit: true,
-                addtext: 'Add',
-                edittext: 'Edit',
                 editurl:"${ctx!}/admin/user/edit",
                 hidegrid: false
             });
-
-            // Add selection
-            $("#table_list").setSelection(1, true);
-
-
-            // Setup buttons
-            $("#table_list").jqGrid('navGrid', '#pager_list', {
-                edit: true,
-                add: true,
-                del: true,
-                search: true
-            }, {
-                height: 600,
-                reloadAfterSubmit: true
-            });
-
+            
             // Add responsive to jqGrid
             $(window).bind('resize', function () {
                 var width = $('.jqGrid_wrapper').width();
