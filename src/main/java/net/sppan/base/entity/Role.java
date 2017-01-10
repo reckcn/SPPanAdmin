@@ -49,7 +49,7 @@ public class Role extends BaseEntity {
 	/**
 	 * 角色key
 	 */
-	private String keyCode;
+	private String roleKey;
 
 	/**
 	 * 角色状态,0：正常；1：删除
@@ -94,12 +94,12 @@ public class Role extends BaseEntity {
 		this.name = name;
 	}
 
-	public String getKeyCode() {
-		return keyCode;
+	public String getRoleKey() {
+		return roleKey;
 	}
 
-	public void setKeyCode(String keyCode) {
-		this.keyCode = keyCode;
+	public void setRoleKey(String roleKey) {
+		this.roleKey = roleKey;
 	}
 
 	public Integer getStatus() {
