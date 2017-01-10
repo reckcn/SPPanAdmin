@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sppan.base.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 
 public class BaseController {
 	@Autowired
@@ -45,5 +46,17 @@ public class BaseController {
         return null;
     }
     
+    protected PageRequest getPageRequest(){
+    	int page = 1;
+    	int size = 10;
+    	try {
+    		page = Integer.parseInt(request.getParameter("page")) - 1;
+    		size = Integer.parseInt(request.getParameter("rows"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+    	PageRequest pageRequest = new PageRequest(page, size);
+    	return pageRequest;
+    }
 
 }

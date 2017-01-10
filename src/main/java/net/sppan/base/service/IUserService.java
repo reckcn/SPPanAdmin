@@ -1,7 +1,5 @@
 package net.sppan.base.service;
 
-import java.util.List;
-
 import net.sppan.base.entity.User;
 import net.sppan.base.service.support.IBaseService;
 
@@ -14,5 +12,12 @@ import net.sppan.base.service.support.IBaseService;
  * @since 2016-12-28
  */
 public interface IUserService extends IBaseService<User, Integer> {
+
+	/**
+	 * 根据用户名查找用户
+	 * @param username
+	 * @return
+	 */
+	User findByUserName(String username);
 
 }

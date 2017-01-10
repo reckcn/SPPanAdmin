@@ -54,8 +54,7 @@ public class User extends BaseEntity {
 	private String password;
 
 	/**
-	 * 性别
-	 * 0 女 1 男
+	 * 性别 0 女 1 男
 	 */
 	private Integer sex;
 
@@ -80,8 +79,7 @@ public class User extends BaseEntity {
 	private String address;
 
 	/**
-	 * 逻辑删除状态
-	 * 0 未删除 1 删除
+	 * 逻辑删除状态 0 未删除 1 删除
 	 */
 	private Integer deleteStatus;
 
@@ -105,7 +103,6 @@ public class User extends BaseEntity {
 	/**
 	 * 更新时间
 	 */
-	@Column(name = "update_time")
 	private Date updateTime;
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)

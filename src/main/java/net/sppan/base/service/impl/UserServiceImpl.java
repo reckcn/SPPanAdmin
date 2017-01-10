@@ -27,5 +27,10 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
 	public IBaseDao<User, Integer> getBaseDao() {
 		return this.userDao;
 	}
+
+	@Override
+	public User findByUserName(String username) {
+		return userDao.findByUserName(username);
+	}
 	
 }

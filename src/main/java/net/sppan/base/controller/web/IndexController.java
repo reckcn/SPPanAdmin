@@ -1,6 +1,9 @@
 package net.sppan.base.controller.web;
 
+import java.util.List;
+
 import net.sppan.base.controller.BaseController;
+import net.sppan.base.entity.User;
 import net.sppan.base.service.IUserService;
 
 import org.slf4j.Logger;
@@ -19,7 +22,8 @@ public class IndexController extends BaseController{
 
 	@RequestMapping(value={"/","/index"})
 	public String index(){
-		logger.debug(userService.toString());
+		List<User> users = userService.findAll();
+		logger.debug(users.toString());
 		return "index";
 	}
 }

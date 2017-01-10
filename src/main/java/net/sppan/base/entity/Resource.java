@@ -75,6 +75,8 @@ public class Resource extends BaseEntity {
 
 	/**
 	 * 是否隐藏
+	 * 
+	 * 0显示 1隐藏
 	 */
 	private Integer isHide;
 

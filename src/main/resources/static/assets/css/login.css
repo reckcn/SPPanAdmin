@@ -27,6 +27,10 @@ body.signin {
     padding: 0;
     margin: 20px 0;
 }
+.signinpanel .forget {
+    float: right;
+    margin-bottom: 10px;
+}
 
 .signinpanel .form-control {
     display: block;

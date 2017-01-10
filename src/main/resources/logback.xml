@@ -37,7 +37,7 @@
 	</appender>
 	
 	<!--=============================== 日志输出: 默认主业务日志 ====================================== -->
-	<root level="info">
+	<root level="INFO">
 		<appender-ref ref="APP" />
 		<appender-ref ref="STDOUT" />
 	</root>
