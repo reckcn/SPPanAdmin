@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import net.sppan.base.entity.support.BaseEntity;
 
 /**
@@ -61,6 +63,7 @@ public class User extends BaseEntity {
 	/**
 	 * 出生日期
 	 */
+	@JSONField(format = "yyyy-MM-dd")
 	private Date birthday;
 
 	/**
@@ -98,11 +101,13 @@ public class User extends BaseEntity {
 	/**
 	 * 创建时间
 	 */
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 
 	/**
 	 * 更新时间
 	 */
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)

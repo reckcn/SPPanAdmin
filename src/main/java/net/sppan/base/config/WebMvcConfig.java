@@ -32,10 +32,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		FastJsonConfig fastJsonConfig = new FastJsonConfig();
         // 在serializerFeatureList中添加转换规则
 		List<SerializerFeature> serializerFeatureList = new ArrayList<SerializerFeature>();
-		serializerFeatureList.add(SerializerFeature.WriteMapNullValue);
-		serializerFeatureList.add(SerializerFeature.WriteNullStringAsEmpty);
-		serializerFeatureList.add(SerializerFeature.WriteDateUseDateFormat);
-		
+		serializerFeatureList.add(SerializerFeature.PrettyFormat);
 		SerializerFeature[] serializerFeatures = serializerFeatureList.toArray(new SerializerFeature[serializerFeatureList.size()]);
 		fastJsonConfig.setSerializerFeatures(serializerFeatures);
 

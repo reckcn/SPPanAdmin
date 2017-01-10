@@ -1,14 +1,19 @@
 package net.sppan.base.controller;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import net.sppan.base.common.DateEditor;
 import net.sppan.base.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 public class BaseController {
 	@Autowired
@@ -19,6 +24,12 @@ public class BaseController {
 	
 	@Autowired
 	private IUserService userService;
+	
+	@InitBinder
+    protected void initBinder(WebDataBinder webDataBinder) {
+        webDataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+        webDataBinder.registerCustomEditor(Date.class, new DateEditor(true));
+    }
 	
 	/**
      * 带参重定向

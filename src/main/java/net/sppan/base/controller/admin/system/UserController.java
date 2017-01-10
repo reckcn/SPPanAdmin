@@ -1,7 +1,5 @@
 package net.sppan.base.controller.admin.system;
 
-import java.util.Enumeration;
-
 import net.sppan.base.controller.BaseController;
 import net.sppan.base.entity.User;
 import net.sppan.base.service.IUserService;
@@ -34,8 +32,8 @@ public class UserController extends BaseController {
 
 	@ResponseBody
 	@RequestMapping(value = "edit", method = RequestMethod.POST)
-	public User edit(User user) {
+	public boolean edit(User user) {
 		System.out.println(user.toString());
-		return null;
+		return true;
 	}
 }
