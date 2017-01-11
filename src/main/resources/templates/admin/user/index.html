@@ -37,11 +37,11 @@
             <div class="col-sm-12">
                 <div class="ibox ">
                     <div class="ibox-title">
-                        <h5>jQuery Grid Plugin – jqGrid</h5>
+                        <h5>用户管理</h5>
                     </div>
                     <div class="ibox-content">
                         <p>
-                            <strong>jqGrid</strong> 是一个用来显示网格数据的jQuery插件，文档比较全面，附带中文版本。访问<a target="_blank" href="http://www.trirand.com/blog/"> 官网</a>
+                        	<button class="btn btn-success " type="button" onclick="add();"><i class="fa fa-plus"></i>&nbsp;添加</button>
                         </p>
                         <hr>
                         <div class="jqGrid_wrapper">
@@ -66,6 +66,8 @@
     <!-- jqGrid -->
     <script src="${ctx!}/assets/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820"></script>
     <script src="${ctx!}/assets/js/plugins/jqgrid/jquery.jqGrid.min.js?0820"></script>
+    
+    <script src="${ctx!}/assets/js/plugins/layer/layer.min.js"></script>
 
     <!-- 自定义js -->
     <script src="${ctx!}/assets/js/content.js?v=1.0.0"></script>
@@ -83,137 +85,111 @@
                 shrinkToFit: true,
                 rowNum: 20,
                 rowList: [10, 20, 30],
-                colNames: [
-                           'ID', 
-                           '用户名', 
-                           '昵称', 
-                           '性别', 
-                           '出生日期', 
-                           '电话', 
-                           '邮箱', 
-                           '住址', 
-                           '状态', 
-                           '锁定', 
-                           '描述', 
-                           '创建时间', 
-                           '更新时间'],
                 jsonReader: {
-                	 root:"content",
-                	 page:"numberOfElements", 
-                	 total:"totalPages",
-                	 records:"totalElements",
-                	 repeatitems:false, 
-                	 id : "id"
+             		 root: "content",   // json中代表实际模型数据的入口  
+           		     page: "number",   // json中代表当前页码的数据  
+           		     total: "totalPages", // json中代表页码总数的数据  
+           		     records: "totalElements", // json中代表数据行总数的数据  
+           		  	 id: "id",
+           		   	 repeatitems: false
                 },
                 colModel: [
                     {
+                    	label: "ID",
                         name: 'id',
                         index: 'id',
                         width: 40,
-                        editable: true,
                         align: "center"
-                    },
-                    {
+                    },{
+                    	label: "用户名",
                         name: 'userName',
-                        index: 'userName',
-                        editable: true,
-                        search: true
+                        index: 'userName'
                     },
                     {
+                    	label: "昵称",
                         name: 'nickName',
-                        index: 'nickName',
-                        editable: true
-                    },
-                    {
+                        index: 'nickName'
+                    },{
+                    	label: "性别",
                         name: 'sex',
                         index: 'sex',
+                        sortable: false,
                         width: 60,
-                        editable: true,
                         formatter: function(cellvalue, options, rowObject) {
                             if (cellvalue == '0') 
-                            	return '女';
-                            return '男';
-                        },
-                        unformat: function(cellvalue) {
-                            if (cellvalue == '女') 
-                            	return '0';
-                            return '1';
+                            	return '<span class="label label-warning">女</span>';
+                            return '<span class="label label-primary">男</span>';
                         }
-                    },
-                    {
+                    },{
+                    	label: "出生日期",
                         name: 'birthday',
                         index: 'birthday',
-                        editable: true,
                         width: 100
-                    },
-                    {
+                    },{
+                    	label: "电话",
                         name: 'telephone',
                         index: 'telephone',
-                        editable: true,
                         width: 110
-                    },
-                    {
+                    },{
+                    	label: "邮箱",
                         name: 'email',
                         index: 'email',
-                        editable: true,
                         width: 200
                         
-                    },
-                    {
+                    },{
+                    	label: "地址",
                         name: 'address',
-                        index: 'address',
-                        editable: true,
-                    },
-                    {
+                        index: 'address'
+                    },{
+                    	label: "状态",
                         name: 'deleteStatus',
                         index: 'deleteStatus',
-                        editable: true,
+                        sortable: false,
                         formatter: function(cellvalue, options, rowObject) {
                             if (cellvalue == '0') 
-                            	return '未删除';
-                            return '已删除';
-                        },
-                        unformat: function(cellvalue) {
-                            if (cellvalue == '未删除') 
-                            	return '0';
-                            return '1';
+                            	return '<span class="label label-info">未删除</span>';
+                            return '<span class="label label-danger">已删除</span>';
                         }
-                    },
-                    {
+                    },{
+                    	label: "锁定",
                         name: 'locked',
                         index: 'locked',
-                        editable: true,
+                        sortable: false,
                         formatter: function(cellvalue, options, rowObject) {
                             if (cellvalue == '0') 
-                            	return '未锁定';
-                            return '已锁定';
-                        },
-                        unformat: function(cellvalue) {
-                            if (cellvalue == '未锁定') 
-                            	return '0';
-                            return '1';
+                            	return '<span class="label label-info">未锁定</span>';
+                            return '<span class="label label-danger">已锁定</span>';
                         }
-                    },
-                    {
+                    },{
+                    	label: "描述",
                         name: 'description',
                         index: 'description',
-                        editable: true
-                    },
-                    {
+                        sortable: false
+                        
+                    },{
+                    	label: "创建日期",
                         name: 'createTime',
-                        index: 'createTime',
-                        editable: true
-                    },
-                    {
+                        index: 'createTime'
+                    },{
+                    	label: "修改日期",
                         name: 'updateTime',
-                        index: 'updateTime',
-                        editable: true,
+                        index: 'updateTime'
+                    },{
+                        label: '操作', 
+                        name: '', 
+                        index: 'operate', 
+                        width: 150, 
+                        align: 'center',
+                        formatter: function (cellvalue, options, rowObject) {
+                        	var operateHtml = '<button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+rowObject.id+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;';
+                        	operateHtml = operateHtml + '<button class="btn btn-danger btn-xs" type="button" onclick="del(\''+rowObject.id+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button>';
+                            return operateHtml;
+                        }
                     }
                 ],
                 pager: "#pager_list",
                 viewrecords: true,
                 caption: "用户列表",
-                editurl:"${ctx!}/admin/user/edit",
                 hidegrid: false
             });
             
@@ -223,6 +199,48 @@
                 $('#table_list').setGridWidth(width);
             });
         });
+        
+        function edit(id){
+        	layer.open({
+        	      type: 2,
+        	      title: '用户修改',
+        	      shadeClose: true,
+        	      shade: false,
+        	      area: ['893px', '600px'],
+        	      content: '${ctx!}/admin/user/edit/' + id,
+        	      end: function(index){
+        	    	  $('#table_list').trigger("reloadGrid");
+       	    	  }
+        	    });
+        }
+        function add(){
+        	layer.open({
+        	      type: 2,
+        	      title: '用户添加',
+        	      shadeClose: true,
+        	      shade: false,
+        	      area: ['893px', '600px'],
+        	      content: '${ctx!}/admin/user/add',
+        	      end: function(index){
+        	    	  $('#table_list').trigger("reloadGrid");
+       	    	  }
+        	    });
+        }
+        function del(id){
+        	layer.confirm('确定删除吗?', {icon: 3, title:'提示'}, function(index){
+        		$.ajax({
+    	    		   type: "POST",
+    	    		   dataType: "json",
+    	    		   url: "${ctx!}/admin/user/delete/" + id,
+    	    		   success: function(msg){
+	 	   	    			layer.msg(msg.message, {time: 2000},function(){
+	 	   	    				$('#table_list').trigger("reloadGrid");
+	 	   	    				layer.close(index);
+	 	   					});
+    	    		   }
+    	    	});
+       		});
+        }
     </script>
 
     

@@ -20,4 +20,6 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 */
 	User findByUserName(String username);
 
+	void saveOrUpdate(User user);
+
 }
