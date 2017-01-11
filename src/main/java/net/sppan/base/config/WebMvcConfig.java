@@ -33,6 +33,10 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
         // 在serializerFeatureList中添加转换规则
 		List<SerializerFeature> serializerFeatureList = new ArrayList<SerializerFeature>();
 		serializerFeatureList.add(SerializerFeature.PrettyFormat);
+		serializerFeatureList.add(SerializerFeature.WriteMapNullValue);
+		serializerFeatureList.add(SerializerFeature.WriteNullStringAsEmpty);
+		serializerFeatureList.add(SerializerFeature.WriteNullListAsEmpty);
+		serializerFeatureList.add(SerializerFeature.DisableCircularReferenceDetect);
 		SerializerFeature[] serializerFeatures = serializerFeatureList.toArray(new SerializerFeature[serializerFeatureList.size()]);
 		fastJsonConfig.setSerializerFeatures(serializerFeatures);
 

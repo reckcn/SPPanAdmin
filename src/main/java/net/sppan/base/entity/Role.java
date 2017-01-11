@@ -14,6 +14,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import net.sppan.base.entity.support.BaseEntity;
 
 /**
@@ -72,6 +74,7 @@ public class Role extends BaseEntity {
 	private Date updateTime;
 
 	@ManyToMany(mappedBy = "roles")
+	@JSONField(serialize = false)
 	private java.util.Set<User> users;
 
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
