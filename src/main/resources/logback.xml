@@ -2,7 +2,7 @@
 <configuration>
 	<!--======================================= 本地变量 ======================================== -->
 	<!--在没有定义${LOG_HOME}系统变量的时候，可以设置此本地变量。提交测试、上线时，要将其注释掉，使用系统变量。 -->
-	<!-- <property name="LOG_HOME" value="D:/data/logs" />  -->
+	<!-- <property name="LOG_HOME" value="D:/data/logs" /> -->
 
 	<!-- 应用名称：和统一配置中的项目代码保持一致（小写） -->
 	<property name="APP_NAME" value="base" />
@@ -32,12 +32,15 @@
 		</rollingPolicy>
 		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
 			<!--格式化输出：%d表示日期，%thread表示线程名，%-5level：级别从左显示5个字符宽度%msg：日志消息，%n是换行符 -->
-			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{50} - %msg%n</pattern>
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{500} - %msg%n</pattern>
 		</encoder>
 	</appender>
-	
 	<!--=============================== 日志输出: 默认主业务日志 ====================================== -->
-	<root level="INFO">
+	<logger name="org.springframework">
+		<level value="WARN" />
+	</logger>
+	
+	<root level="DEBUG">
 		<appender-ref ref="APP" />
 		<appender-ref ref="STDOUT" />
 	</root>
