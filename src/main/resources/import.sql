@@ -2,4 +2,4 @@ insert  into `tb_role`(`id`,`create_time`,`description`,`role_key`,`name`,`statu
 insert  into `tb_user`(`id`,`address`,`birthday`,`create_time`,`delete_status`,`description`,`email`,`locked`,`nick_name`,`password`,`sex`,`telephone`,`update_time`,`user_name`) values (1,'成都','2017-01-09 17:26:39','2017-01-09 17:26:41',0,'超级管理员','whoismy8023@163.com',0,'0','3931MUEQD1939MQMLM4AISPVNE',1,'15923935295','2017-01-09 17:27:11','admin');
 insert  into `tb_user_role`(`user_id`,`role_id`) values (1,1);
 insert  into `tb_resource`(`id`,`create_time`,`description`,`icon`,`is_hide`,`level`,`name`,`sort`,`source_key`,`source_url`,`type`,`update_time`,`parent_id`) values (1,'2017-01-10 13:56:51','用户管理',NULL,0,2,'用户管理',1,'system:user:index','/admin/user/index',1,'2017-01-10 13:59:01',NULL),(2,'2017-01-10 13:56:51','用户编辑',NULL,0,3,'用户编辑',1,'system:user:edit','/admin/user/edit',2,'2017-01-10 16:26:42',1),(3,'2017-01-11 16:48:48','用户添加',NULL,0,3,'用户添加',2,'system:user:add','/admin/user/add',2,'2017-01-11 16:49:26',1);
-insert  into `tb_role_resource`(`role_id`,`resource_id`) values (1,1),(1,2);
+insert  into `tb_role_resource`(`role_id`,`resource_id`) values (1,1),(1,2),(1,3);
