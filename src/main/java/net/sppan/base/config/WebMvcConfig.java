@@ -36,7 +36,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter {
 		serializerFeatureList.add(SerializerFeature.WriteMapNullValue);
 		serializerFeatureList.add(SerializerFeature.WriteNullStringAsEmpty);
 		serializerFeatureList.add(SerializerFeature.WriteNullListAsEmpty);
-		serializerFeatureList.add(SerializerFeature.DisableCircularReferenceDetect);
+//		serializerFeatureList.add(SerializerFeature.DisableCircularReferenceDetect);
 		SerializerFeature[] serializerFeatures = serializerFeatureList.toArray(new SerializerFeature[serializerFeatureList.size()]);
 		fastJsonConfig.setSerializerFeatures(serializerFeatures);
 

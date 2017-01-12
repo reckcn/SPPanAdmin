@@ -74,7 +74,6 @@ public class Role extends BaseEntity {
 	private Date updateTime;
 
 	@ManyToMany(mappedBy = "roles")
-	@JSONField(serialize = false)
 	private java.util.Set<User> users;
 
 	@ManyToMany(cascade = { CascadeType.REFRESH }, fetch = FetchType.LAZY)

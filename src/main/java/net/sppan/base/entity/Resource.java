@@ -99,11 +99,9 @@ public class Resource extends BaseEntity {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
-	@JSONField(serialize = false)
 	private Resource parent;
 
 	@ManyToMany(mappedBy = "resources")
-	@JSONField(serialize = false)
 	private java.util.Set<Role> roles;
 
 	@OneToMany(mappedBy = "parent")
