@@ -77,7 +77,7 @@ public class Role extends BaseEntity {
 	@JSONField(serialize = false)
 	private java.util.Set<User> users;
 
-	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.LAZY)
+	@ManyToMany(cascade = { CascadeType.REFRESH }, fetch = FetchType.LAZY)
 	@JoinTable(name = "tb_role_resource", joinColumns = { @JoinColumn(name = "role_id") }, inverseJoinColumns = { @JoinColumn(name = "resource_id") })
 	private java.util.Set<Resource> resources;
 
