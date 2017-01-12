@@ -12,5 +12,7 @@ import net.sppan.base.service.support.IBaseService;
  * @since 2016-12-28
  */
 public interface IRoleService extends IBaseService<Role,Integer> {
+
+	void saveOrUpdate(Role role);
 	
 }

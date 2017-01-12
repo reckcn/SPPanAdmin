@@ -66,11 +66,13 @@ public class Role extends BaseEntity {
 	/**
 	 * 创建时间
 	 */
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 
 	/**
 	 * 更新时间
 	 */
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
 
 	@ManyToMany(mappedBy = "roles")

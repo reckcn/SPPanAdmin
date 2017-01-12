@@ -1,5 +1,7 @@
 package net.sppan.base.service.impl;
 
+import java.util.Date;
+
 import net.sppan.base.dao.IRoleDao;
 import net.sppan.base.dao.support.IBaseDao;
 import net.sppan.base.entity.Role;
@@ -26,6 +28,23 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Integer> implements I
 	@Override
 	public IBaseDao<Role, Integer> getBaseDao() {
 		return this.roleDao;
+	}
+
+	@Override
+	public void saveOrUpdate(Role role) {
+		if(role.getId() != null){
+			Role dbRole = find(role.getId());
+			dbRole.setUpdateTime(new Date());
+			dbRole.setName(role.getName());
+			dbRole.setDescription(role.getDescription());
+			dbRole.setUpdateTime(new Date());
+			dbRole.setStatus(0);
+			update(dbRole);
+		}else{
+			role.setCreateTime(new Date());
+			role.setUpdateTime(new Date());
+			save(role);
+		}
 	}
 	
 }

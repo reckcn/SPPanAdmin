@@ -39,7 +39,6 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
 
 	@Override
 	public void saveOrUpdate(User user) {
-		user.setUpdateTime(new Date());
 		if(user.getId() != null){
 			User dbUser = find(user.getId());
 			dbUser.setNickName(user.getNickName());
@@ -50,9 +49,11 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
 			dbUser.setAddress(user.getAddress());
 			dbUser.setLocked(user.getLocked());
 			dbUser.setDescription(user.getDescription());
+			dbUser.setUpdateTime(new Date());
 			update(dbUser);
 		}else{
 			user.setCreateTime(new Date());
+			user.setUpdateTime(new Date());
 			user.setDeleteStatus(0);
 			user.setPassword(MD5Utils.md5("111111"));
 			save(user);
