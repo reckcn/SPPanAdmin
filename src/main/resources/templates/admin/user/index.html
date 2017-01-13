@@ -104,8 +104,18 @@
                     	label: "用户名",
                         name: 'userName',
                         index: 'userName'
-                    },
-                    {
+                    },{
+                    	label: "所属角色",
+                        name: 'roles',
+                        index: 'roles',
+                        formatter: function(cellvalue, options, rowObject) {
+                        	var r = "";
+                        	$(cellvalue).each(function (index,role){
+                        		r = r + "【" + role.name + "】";
+                        	});
+                        	return r;
+                        }
+                    },{
                     	label: "昵称",
                         name: 'nickName',
                         index: 'nickName'
@@ -144,6 +154,7 @@
                     	label: "状态",
                         name: 'deleteStatus',
                         index: 'deleteStatus',
+                        width: 80,
                         sortable: false,
                         formatter: function(cellvalue, options, rowObject) {
                             if (cellvalue == '0') 
@@ -154,6 +165,7 @@
                     	label: "锁定",
                         name: 'locked',
                         index: 'locked',
+                        width: 80,
                         sortable: false,
                         formatter: function(cellvalue, options, rowObject) {
                             if (cellvalue == '0') 

@@ -98,9 +98,6 @@ public class Resource extends BaseEntity {
 	@JoinColumn(name = "parent_id")
 	private Resource parent;
 
-	@OneToMany(mappedBy = "parent")
-	private java.util.Set<Resource> child;
-
 	public Integer getId() {
 		return id;
 	}
@@ -203,14 +200,6 @@ public class Resource extends BaseEntity {
 
 	public void setParent(Resource parent) {
 		this.parent = parent;
-	}
-
-	public java.util.Set<Resource> getChild() {
-		return child;
-	}
-
-	public void setChild(java.util.Set<Resource> child) {
-		this.child = child;
 	}
 
 }
