@@ -27,6 +27,9 @@
         #alertmod_table_list {
             top: 100px !important;
         }
+        .ui-jqgrid tr.jqgrow td {
+		text-overflow : ellipsis;
+		}
     </style>
 
 </head>
@@ -204,7 +207,6 @@
                 caption: "用户列表",
                 hidegrid: false
             });
-            
             // Add responsive to jqGrid
             $(window).bind('resize', function () {
                 var width = $('.jqGrid_wrapper').width();
