@@ -1,7 +1,6 @@
 package net.sppan.base.controller.admin.system;
 
 import net.sppan.base.common.JsonResult;
-import net.sppan.base.common.utils.BeanMapUtils;
 import net.sppan.base.controller.BaseController;
 import net.sppan.base.entity.User;
 import net.sppan.base.service.IUserService;
@@ -31,7 +30,6 @@ public class UserController extends BaseController {
 	@ResponseBody
 	public Page<User> list() {
 		Page<User> page = userService.findAll(getPageRequest());
-		BeanMapUtils.copy(page);
 		return page;
 	}
 	

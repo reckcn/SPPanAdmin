@@ -9,12 +9,9 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import com.alibaba.fastjson.annotation.JSONField;
 
 import net.sppan.base.entity.support.BaseEntity;
 
@@ -100,9 +97,6 @@ public class Resource extends BaseEntity {
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "parent_id")
 	private Resource parent;
-
-	@ManyToMany(mappedBy = "resources")
-	private java.util.Set<Role> roles;
 
 	@OneToMany(mappedBy = "parent")
 	private java.util.Set<Resource> child;
@@ -209,14 +203,6 @@ public class Resource extends BaseEntity {
 
 	public void setParent(Resource parent) {
 		this.parent = parent;
-	}
-
-	public java.util.Set<Role> getRoles() {
-		return roles;
-	}
-
-	public void setRoles(java.util.Set<Role> roles) {
-		this.roles = roles;
 	}
 
 	public java.util.Set<Resource> getChild() {
