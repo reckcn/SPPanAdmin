@@ -1,17 +1,21 @@
 package net.sppan.base.service.impl;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.sppan.base.common.utils.MD5Utils;
 import net.sppan.base.dao.IUserDao;
 import net.sppan.base.dao.support.IBaseDao;
+import net.sppan.base.entity.Role;
 import net.sppan.base.entity.User;
+import net.sppan.base.service.IRoleService;
 import net.sppan.base.service.IUserService;
 import net.sppan.base.service.support.impl.BaseServiceImpl;
 
-import org.apache.commons.beanutils.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * <p>
@@ -26,6 +30,9 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
 
 	@Autowired
 	private IUserDao userDao;
+	
+	@Autowired
+	private IRoleService roleService;
 	
 	@Override
 	public IBaseDao<User, Integer> getBaseDao() {
@@ -58,6 +65,21 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
 			user.setPassword(MD5Utils.md5("111111"));
 			save(user);
 		}
+	}
+
+	@Override
+	public void grant(Integer id, String[] roleIds) {
+		User user = find(id);
+		Assert.notNull(user, "用户不存在");
+		Role role;
+		Set<Role> roles = new HashSet<Role>();
+		for (int i = 0; i < roleIds.length; i++) {
+			Integer rid = Integer.parseInt(roleIds[i]);
+			role = roleService.find(rid);
+			roles.add(role);
+		}
+		user.setRoles(roles);
+		update(user);
 	}
 	
 }

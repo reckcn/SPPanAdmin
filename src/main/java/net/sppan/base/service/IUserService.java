@@ -22,4 +22,6 @@ public interface IUserService extends IBaseService<User, Integer> {
 
 	void saveOrUpdate(User user);
 
+	void grant(Integer id, String[] roleIds);
+
 }

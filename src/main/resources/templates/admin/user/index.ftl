@@ -150,10 +150,6 @@
                         width: 200
                         
                     },{
-                    	label: "地址",
-                        name: 'address',
-                        index: 'address'
-                    },{
                     	label: "状态",
                         name: 'deleteStatus',
                         index: 'deleteStatus',
@@ -176,12 +172,6 @@
                             return '<span class="label label-danger">已锁定</span>';
                         }
                     },{
-                    	label: "描述",
-                        name: 'description',
-                        index: 'description',
-                        sortable: false
-                        
-                    },{
                     	label: "创建日期",
                         name: 'createTime',
                         index: 'createTime'
@@ -193,11 +183,12 @@
                         label: '操作', 
                         name: '', 
                         index: 'operate', 
-                        width: 150, 
+                        width: 250, 
                         align: 'center',
                         formatter: function (cellvalue, options, rowObject) {
                         	var operateHtml = '<button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+rowObject.id+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;';
-                        	operateHtml = operateHtml + '<button class="btn btn-danger btn-xs" type="button" onclick="del(\''+rowObject.id+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button>';
+                        	operateHtml = operateHtml + '<button class="btn btn-danger btn-xs" type="button" onclick="del(\''+rowObject.id+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button> &nbsp;';
+                        	operateHtml = operateHtml + '<button class="btn btn-info btn-xs" type="button" onclick="grant(\''+rowObject.id+'\')"><i class="fa fa-arrows"></i>&nbsp;关联角色</button>';
                             return operateHtml;
                         }
                     }
@@ -235,6 +226,19 @@
         	      shade: false,
         	      area: ['893px', '600px'],
         	      content: '${ctx!}/admin/user/add',
+        	      end: function(index){
+        	    	  $('#table_list').trigger("reloadGrid");
+       	    	  }
+        	    });
+        }
+        function grant(id){
+        	layer.open({
+        	      type: 2,
+        	      title: '关联角色',
+        	      shadeClose: true,
+        	      shade: false,
+        	      area: ['893px', '600px'],
+        	      content: '${ctx!}/admin/user/grant/'  + id,
         	      end: function(index){
         	    	  $('#table_list').trigger("reloadGrid");
        	    	  }

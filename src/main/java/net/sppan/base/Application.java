@@ -10,7 +10,7 @@ import org.springframework.cache.annotation.EnableCaching;
 @EnableCaching
 public class Application{
 
-	private static Logger logger = LoggerFactory.getLogger(Appendable.class);
+	private static Logger logger = LoggerFactory.getLogger(Application.class);
 	/**
 	 */
 	public static void main(String[] args) {
