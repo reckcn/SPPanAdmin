@@ -1,15 +1,21 @@
 package net.sppan.base.service.impl;
 
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
 
 import net.sppan.base.dao.IRoleDao;
 import net.sppan.base.dao.support.IBaseDao;
+import net.sppan.base.entity.Resource;
 import net.sppan.base.entity.Role;
+import net.sppan.base.service.IResourceService;
 import net.sppan.base.service.IRoleService;
 import net.sppan.base.service.support.impl.BaseServiceImpl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 /**
  * <p>
@@ -24,6 +30,8 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Integer> implements I
 
 	@Autowired
 	private IRoleDao roleDao;
+	@Autowired
+	private IResourceService resourceService;
 	
 	@Override
 	public IBaseDao<Role, Integer> getBaseDao() {
@@ -45,6 +53,26 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Integer> implements I
 			role.setUpdateTime(new Date());
 			save(role);
 		}
+	}
+
+	@Override
+	public void grant(Integer id, String[] resourceIds) {
+		Role role = find(id);
+		Assert.notNull(role, "角色不存在");
+		Resource resource;
+		Set<Resource> resources = new HashSet<Resource>();
+		if(resourceIds != null){
+			for (int i = 0; i < resourceIds.length; i++) {
+				if(StringUtils.isBlank(resourceIds[i]) || "0".equals(resourceIds[i])){
+					continue;
+				}
+				Integer rid = Integer.parseInt(resourceIds[i]);
+				resource = resourceService.find(rid);
+				resources.add(resource);
+			}
+		}
+		role.setResources(resources);
+		update(role);
 	}
 	
 }

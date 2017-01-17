@@ -29,7 +29,7 @@
                         <h5>jQuery Validate 简介</h5>
                     </div>
                     <div class="ibox-content">
-                        <p>为【${user.nickName}】分配角色</p>
+                        <p>为【${role.name}】分配资源</p>
                     </div>
                 </div>
             </div>
@@ -38,12 +38,15 @@
             <div class="col-sm-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
-                        <h5>选择角色</h5>
+                        <h5>选择资源</h5>
                     </div>
                     <div class="ibox-content">
                     	<ul id="tree" class="ztree"></ul>
                     </div>
                 </div>
+				<div class="col-sm-6 col-sm-offset-6">
+					<button class="btn btn-primary" type="button" id="btnSave">提交</button>
+				</div>
             </div>
         </div>
 
@@ -85,11 +88,36 @@
 			url : "${ctx!}/admin/resource/tree/" + ${role.id},
 			dataType : 'json',
 			success : function(msg) {
-				console.log(msg);
 				$.fn.zTree.init($("#tree"), setting, msg);
 			}
 		});
+		
+		$("#btnSave").click(function (){
+			var treeObj = $.fn.zTree.getZTreeObj("tree");
+			var nodes = treeObj.getCheckedNodes(true);
+			var selectIds="";
+			for(var index in nodes){
+				var item=nodes[index];
+				selectIds+=item.id+",";
+			} 
+			$.ajax({
+				url : "${ctx!}/admin/role/grant/" + ${role.id},
+				type : "post",
+				dataType : "json",
+				data : {"resourceIds":selectIds},
+				success : function(msg) {
+					layer.msg(msg.message, {time: 2000},function(){
+   						var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+   						parent.layer.close(index); 
+   					});
+				},
+				error : function(r,s,m) {
+				}
+			});
+		
+		});
 	}); 
+	
 	</script>
 </body>
 </html>

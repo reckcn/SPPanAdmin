@@ -73,10 +73,12 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
 		Assert.notNull(user, "用户不存在");
 		Role role;
 		Set<Role> roles = new HashSet<Role>();
-		for (int i = 0; i < roleIds.length; i++) {
-			Integer rid = Integer.parseInt(roleIds[i]);
-			role = roleService.find(rid);
-			roles.add(role);
+		if(roleIds != null){
+			for (int i = 0; i < roleIds.length; i++) {
+				Integer rid = Integer.parseInt(roleIds[i]);
+				role = roleService.find(rid);
+				roles.add(role);
+			}
 		}
 		user.setRoles(roles);
 		update(user);

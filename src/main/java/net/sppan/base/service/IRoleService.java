@@ -14,5 +14,7 @@ import net.sppan.base.service.support.IBaseService;
 public interface IRoleService extends IBaseService<Role,Integer> {
 
 	void saveOrUpdate(Role role);
+
+	void grant(Integer id, String[] resourceIds);
 	
 }

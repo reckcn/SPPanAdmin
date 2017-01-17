@@ -1,10 +1,7 @@
 package net.sppan.base.controller.admin.system;
 
-import java.util.List;
-
 import net.sppan.base.common.JsonResult;
 import net.sppan.base.controller.BaseController;
-import net.sppan.base.entity.Resource;
 import net.sppan.base.entity.Role;
 import net.sppan.base.service.IResourceService;
 import net.sppan.base.service.IRoleService;
@@ -16,6 +13,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
@@ -81,5 +79,18 @@ public class RoleController extends BaseController {
 		Role role = roleService.find(id);
 		map.put("role", role);
 		return "admin/role/grant";
+	}
+
+	@RequestMapping(value = "/grant/{id}", method = RequestMethod.POST)
+	@ResponseBody
+	public JsonResult grant(@PathVariable Integer id,
+			@RequestParam(required = false) String[] resourceIds, ModelMap map) {
+		try {
+			roleService.grant(id,resourceIds);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JsonResult.failure(e.getMessage());
+		}
+		return JsonResult.success();
 	}
 }
