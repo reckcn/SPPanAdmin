@@ -16,7 +16,7 @@
     <link href="${ctx!}/assets/css/font-awesome.css?v=4.4.0" rel="stylesheet">
     <link href="${ctx!}/assets/css/animate.css" rel="stylesheet">
     <link href="${ctx!}/assets/css/style.css?v=4.1.0" rel="stylesheet">
-    <link href="//cdn.bootcss.com/zTree.v3/3.5.24/css/zTreeStyle/zTreeStyle.css" rel="stylesheet">
+    <link href="${ctx!}/assets/css/plugins/zTree/zTreeStyle/zTreeStyle.css" rel="stylesheet">
 
 </head>
 
@@ -51,24 +51,34 @@
 
 
     <!-- 全局js -->
+
     <script src="${ctx!}/assets/js/jquery.min.js?v=2.1.4"></script>
     <script src="${ctx!}/assets/js/bootstrap.min.js?v=3.3.6"></script>
-
-    <!-- 自定义js -->
+    
     <script src="${ctx!}/assets/js/content.js?v=1.0.0"></script>
-
-    <!-- jQuery Validation plugin javascript-->
+    
+    
     <script src="${ctx!}/assets/js/plugins/validate/jquery.validate.min.js"></script>
     <script src="${ctx!}/assets/js/plugins/validate/messages_zh.min.js"></script>
     <script src="${ctx!}/assets/js/plugins/layer/layer.min.js"></script>
-    <script src="${ctx!}/assets/js/plugins/layer/laydate/laydate.js"></script>
-    <script type="text/javascript"
-	src="http://apps.bdimg.com/libs/jquery/1.9.1/jquery.js"></script>
-<script
-	src="//cdn.bootcss.com/zTree.v3/3.5.24/js/jquery.ztree.all.min.js"></script>
-<script src="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.js"></script>
+    <script src="${ctx!}/assets/js/plugins/layer/laydate/laydate.js"></script> 
+    <script src="${ctx!}/assets/js/plugins/zTree/jquery.ztree.all.min.js"></script>
 
 	<script type = "text/javascript"> 
+	var setting = {
+		check : {
+			enable : true
+		},
+		data : {
+			simpleData : {
+				enable : true
+			}
+		}
+	};
+	setting.check.chkboxType = {
+		"Y" : "ps",
+		"N" : "s"
+	};
 	$(document).ready(function() {
 		$.ajax({
 			type : "POST",
@@ -80,29 +90,6 @@
 			}
 		});
 	}); 
-	var setting = {
-		check : {
-			enable : true
-		},
-		data : {
-			simpleData : {
-				enable : true
-			}
-		},
-		callback : {
-			beforeCheck : beforeCheck,
-			onCheck : onCheck
-		}
-	};
-	function beforeCheck(treeId, treeNode) {
-		return (treeNode.doCheck !== false);
-	}
-	function onCheck(e, treeId, treeNode) {
-	}
-	setting.check.chkboxType = {
-		"Y" : "ps",
-		"N" : "s"
-	};
 	</script>
 </body>
 </html>
