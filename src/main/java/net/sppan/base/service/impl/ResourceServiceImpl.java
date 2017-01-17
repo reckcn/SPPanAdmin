@@ -91,4 +91,10 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 		}
 	}
 
+	@Override
+	public void delete(Integer id) {
+		resourceDao.deleteGrant(id);
+		super.delete(id);
+	}
+	
 }
