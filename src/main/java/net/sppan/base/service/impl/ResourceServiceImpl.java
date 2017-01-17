@@ -1,6 +1,7 @@
 package net.sppan.base.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -65,6 +66,29 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 			resulTreeNodes.add(node);
 		}
 		return resulTreeNodes;
+	}
+
+	@Override
+	public void saveOrUpdate(Resource resource) {
+		if(resource.getId() != null){
+			Resource dbResource = find(resource.getId());
+			dbResource.setUpdateTime(new Date());
+			dbResource.setName(resource.getName());
+			dbResource.setSourceKey(resource.getSourceKey());
+			dbResource.setType(resource.getType());
+			dbResource.setSourceUrl(resource.getSourceUrl());
+			dbResource.setLevel(resource.getLevel());
+			dbResource.setSort(resource.getSort());
+			dbResource.setIsHide(resource.getIsHide());
+			dbResource.setIcon(resource.getIcon());
+			dbResource.setDescription(resource.getDescription());
+			dbResource.setUpdateTime(new Date());
+			update(dbResource);
+		}else{
+			resource.setCreateTime(new Date());
+			resource.setUpdateTime(new Date());
+			save(resource);
+		}
 	}
 
 }

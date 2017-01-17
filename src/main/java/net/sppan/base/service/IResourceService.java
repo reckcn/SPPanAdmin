@@ -18,4 +18,6 @@ public interface IResourceService extends IBaseService<Resource, Integer> {
 
 	List<ZtreeView> tree(int roleId);
 
+	void saveOrUpdate(Resource resource);
+
 }
