@@ -142,7 +142,8 @@
                         align: 'center',
                         formatter: function (cellvalue, options, rowObject) {
                         	var operateHtml = '<button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+rowObject.id+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;';
-                        	operateHtml = operateHtml + '<button class="btn btn-danger btn-xs" type="button" onclick="del(\''+rowObject.id+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button>';
+                        	operateHtml = operateHtml + '<button class="btn btn-danger btn-xs" type="button" onclick="del(\''+rowObject.id+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button> &nbsp;';
+                        	operateHtml = operateHtml + '<button class="btn btn-info btn-xs" type="button" onclick="grant(\''+rowObject.id+'\')"><i class="fa fa-arrows"></i>&nbsp;分配资源</button>';
                             return operateHtml;
                         }
                     }
@@ -181,6 +182,19 @@
         	      shade: false,
         	      area: ['893px', '600px'],
         	      content: '${ctx!}/admin/role/add',
+        	      end: function(index){
+        	    	  $('#table_list').trigger("reloadGrid");
+       	    	  }
+        	    });
+        }
+        function grant(id){
+        	layer.open({
+        	      type: 2,
+        	      title: '分配资源',
+        	      shadeClose: true,
+        	      shade: false,
+        	      area: ['893px', '600px'],
+        	      content: '${ctx!}/admin/role/grant/'  + id,
         	      end: function(index){
         	    	  $('#table_list').trigger("reloadGrid");
        	    	  }

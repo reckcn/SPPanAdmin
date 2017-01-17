@@ -1,8 +1,12 @@
 package net.sppan.base.controller.admin.system;
 
+import java.util.List;
+
 import net.sppan.base.common.JsonResult;
 import net.sppan.base.controller.BaseController;
+import net.sppan.base.entity.Resource;
 import net.sppan.base.entity.Role;
+import net.sppan.base.service.IResourceService;
 import net.sppan.base.service.IRoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +24,9 @@ public class RoleController extends BaseController {
 
 	@Autowired
 	private IRoleService roleService;
+	
+	@Autowired
+	private IResourceService resourceService;
 
 	@RequestMapping(value = { "/", "/index" })
 	public String index() {
@@ -67,5 +74,12 @@ public class RoleController extends BaseController {
 			return JsonResult.failure(e.getMessage());
 		}
 		return JsonResult.success();
+	}
+	
+	@RequestMapping(value = "/grant/{id}", method = RequestMethod.GET)
+	public String grant(@PathVariable Integer id, ModelMap map) {
+		Role role = roleService.find(id);
+		map.put("role", role);
+		return "admin/role/grant";
 	}
 }
