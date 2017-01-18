@@ -39,6 +39,9 @@
 	<logger name="org.springframework">
 		<level value="WARN" />
 	</logger>
+	<logger name="org.hibernate.loader">
+		<level value="WARN" />
+	</logger>
 	
 	<root level="DEBUG">
 		<appender-ref ref="APP" />
