@@ -102,12 +102,12 @@
     	    	roleKey: {
     	        required: true,
     	        minlength: 4,
-    	    	maxlength: 10
+    	    	maxlength: 30
     	      },
     	        name: {
     	        required: true,
     	        minlength: 4,
-    	    	maxlength: 10
+    	    	maxlength: 30
     	      },
     	        status: {
     	        required: true

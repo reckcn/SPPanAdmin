@@ -149,12 +149,12 @@
     	    	name: {
     	        required: true,
     	        minlength: 4,
-    	    	maxlength: 10
+    	    	maxlength: 20
     	      },
     	      	sourceKey: {
     	        required: true,
     	        minlength: 4,
-    	    	maxlength: 20
+    	    	maxlength: 40
     	      },
     	      	type: {
     	        required: true

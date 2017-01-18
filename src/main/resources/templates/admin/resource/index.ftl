@@ -127,11 +127,11 @@
                         index: 'type',
                         formatter: function (cellvalue, options, rowObject) {
                         	if(cellvalue == 0)
-                        		return "目录";
+                        		return '<span class="label label-info">目录</span>';
                         	else if(cellvalue == 1)
-                        		return "菜单";
+                        		return '<span class="label label-primary">菜单</span>';
                         	else if(cellvalue == 2)
-                        		return "按钮";
+                        		return '<span class="label label-warning">按钮</span>';
                         }
                     },{
                     	label: "URL",
@@ -155,9 +155,9 @@
                         index: 'isHide',
                         formatter: function (cellvalue, options, rowObject) {
                         	if(cellvalue == 0)
-                        		return "显示";
+                        		return '<span class="label label-info">显示</span>';
                         	else if(cellvalue == 1)
-                        		return "隐藏";
+                        		return '<span class="label label-danger">隐藏</span>';
                         }
                     },{
                         label: '操作', 
