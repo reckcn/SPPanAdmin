@@ -44,7 +44,9 @@
                     </div>
                     <div class="ibox-content">
                         <p>
-                        	<button class="btn btn-success " type="button" onclick="add();"><i class="fa fa-plus"></i>&nbsp;添加</button>
+                        	<@shiro.hasPermission name="system:resource:add">
+                        		<button class="btn btn-success " type="button" onclick="add();"><i class="fa fa-plus"></i>&nbsp;添加</button>
+                        	</@shiro.hasPermission>
                         </p>
                         <hr>
                         <div class="jqGrid_wrapper">
@@ -164,8 +166,8 @@
                         width: 250, 
                         align: 'center',
                         formatter: function (cellvalue, options, rowObject) {
-                        	var operateHtml = '<button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+rowObject.id+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;';
-                        	operateHtml = operateHtml + '<button class="btn btn-danger btn-xs" type="button" onclick="del(\''+rowObject.id+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button>';
+                        	var operateHtml = '<@shiro.hasPermission name="system:resource:add"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+rowObject.id+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
+                        	operateHtml = operateHtml + '<@shiro.hasPermission name="system:resource:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+rowObject.id+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button></@shiro.hasPermission>';
                             return operateHtml;
                         }
                     }

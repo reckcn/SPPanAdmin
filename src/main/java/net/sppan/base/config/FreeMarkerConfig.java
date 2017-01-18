@@ -2,10 +2,10 @@ package net.sppan.base.config;
 
 import javax.annotation.PostConstruct;
 
+import net.sppan.base.config.shiro.freemarker.ShiroTags;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
-
-import freemarker.template.TemplateModelException;
 
 @Configuration
 public class FreeMarkerConfig {
@@ -16,8 +16,8 @@ public class FreeMarkerConfig {
     @PostConstruct
     public void setSharedVariable() {
     	try {
-			configuration.setSharedVariable("testSharedVariable", "111111111111111111111");
-		} catch (TemplateModelException e) {
+			configuration.setSharedVariable("shiro", new ShiroTags());
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
     }
