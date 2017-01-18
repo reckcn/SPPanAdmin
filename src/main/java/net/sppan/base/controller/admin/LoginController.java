@@ -33,4 +33,12 @@ public class LoginController extends BaseController {
 		}
 		return "admin/login";
 	}
+	
+	@RequestMapping(value = { "/admin/logout" }, method = RequestMethod.GET)
+	public String logout() {
+		Subject subject = SecurityUtils.getSubject();
+		subject.logout();
+		return redirect("admin/login");
+	}
+	
 }

@@ -85,14 +85,14 @@
                     <ul class="nav navbar-top-links navbar-right">
                         <li class="dropdown">
                             <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-                                <i class="fa fa-bell"></i> <span class="label label-primary">8</span>
+                                <i class="fa fa-user"></i> <span class="label label-primary"></span>【<@shiro.principal type="net.sppan.base.entity.User" property="nickName"/>】
                             </a>
                             <ul class="dropdown-menu dropdown-alerts">
                                 <li>
-                                    <a href="mailbox.html">
+                                    <a href="${ctx!}/admin/logout">
                                         <div>
-                                            <i class="fa fa-envelope fa-fw"></i> 您有16条未读消息
-                                            <span class="pull-right text-muted small">4分钟前</span>
+                                            <i class="fa fa-remove"></i> 注销
+                                            <span class="pull-right text-muted small"><@shiro.principal type="net.sppan.base.entity.User" property="userName"/></span>
                                         </div>
                                     </a>
                                 </li>
