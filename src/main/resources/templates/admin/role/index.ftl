@@ -120,7 +120,7 @@
                         formatter: function(cellvalue, options, rowObject) {
                             if (cellvalue == '0') 
                             	return '<span class="label label-primary">正常</span>';
-                            return '<span class="label label-danger">删除</span>';
+                            return '<span class="label label-danger">禁用</span>';
                         }
                     },{
                     	label: "描述",

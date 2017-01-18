@@ -59,7 +59,7 @@
                                 <div class="col-sm-8">
                                 	<select name="status" class="form-control">
                                 		<option value="0" <#if role.status == 0>selected="selected"</#if>>正常</option>
-                                		<option value="1" <#if role.status == 1>selected="selected"</#if>>删除</option>
+                                		<option value="1" <#if role.status == 1>selected="selected"</#if>>禁用</option>
                                 	</select>
                                 </div>
                             </div>

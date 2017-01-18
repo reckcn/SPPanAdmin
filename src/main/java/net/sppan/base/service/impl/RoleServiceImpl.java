@@ -46,7 +46,7 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Integer> implements I
 			dbRole.setName(role.getName());
 			dbRole.setDescription(role.getDescription());
 			dbRole.setUpdateTime(new Date());
-			dbRole.setStatus(0);
+			dbRole.setStatus(role.getStatus());
 			update(dbRole);
 		}else{
 			role.setCreateTime(new Date());
@@ -55,10 +55,21 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Integer> implements I
 		}
 	}
 
+	
+	
+	@Override
+	public void delete(Integer id) {
+		Role role = find(id);
+		Assert.state(!"administrator".equals(role.getRoleKey()),"超级管理员角色不能删除");
+		super.delete(id);
+	}
+
 	@Override
 	public void grant(Integer id, String[] resourceIds) {
 		Role role = find(id);
 		Assert.notNull(role, "角色不存在");
+		
+		Assert.state(!"administrator".equals(role.getRoleKey()),"超级管理员角色不能进行资源分配");
 		Resource resource;
 		Set<Resource> resources = new HashSet<Resource>();
 		if(resourceIds != null){
