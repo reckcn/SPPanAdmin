@@ -12,6 +12,7 @@ import net.sppan.base.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -57,7 +58,7 @@ public class BaseController {
         return null;
     }
     
-    protected PageRequest getPageRequest(){
+    protected PageRequest getPageRequest(Sort sort){
     	int page = 1;
     	int size = 10;
     	try {
@@ -66,7 +67,7 @@ public class BaseController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-    	PageRequest pageRequest = new PageRequest(page, size);
+    	PageRequest pageRequest = new PageRequest(page, size, sort);
     	return pageRequest;
     }
 

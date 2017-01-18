@@ -108,8 +108,10 @@
                         name: 'name',
                         index: 'name',
                         formatter: function (cellvalue, options, rowObject) {
-                        	if(rowObject.level == 2)
+                        	if(rowObject.level == 1)
                         		return "|-" + cellvalue;
+                        	if(rowObject.level == 2)
+                        		return "　|-" + cellvalue;
                         	else if(rowObject.level == 3)
                         		return "　　|-" + cellvalue;
                         }

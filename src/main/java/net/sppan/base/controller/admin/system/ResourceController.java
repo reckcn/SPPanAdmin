@@ -10,6 +10,8 @@ import net.sppan.base.vo.ZtreeView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,20 +32,23 @@ public class ResourceController extends BaseController {
 		return list;
 	}
 	
-	@RequestMapping(value = { "/", "/index" })
+	@RequestMapping("/index")
 	public String index() {
 		return "admin/resource/index";
 	}
 
-	@RequestMapping(value = { "/list" })
+	@RequestMapping("/list")
 	@ResponseBody
 	public Page<Resource> list() {
-		Page<Resource> page = resourceService.findAll(getPageRequest());
+		Sort sort = new Sort(Direction.ASC, "id");
+		Page<Resource> page = resourceService.findAll(getPageRequest(sort));
 		return page;
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String add(ModelMap map) {
+		List<Resource> list = resourceService.findAll();
+		map.put("list", list);
 		return "admin/resource/form";
 	}
 	
@@ -52,7 +57,21 @@ public class ResourceController extends BaseController {
 	public String edit(@PathVariable Integer id,ModelMap map) {
 		Resource resource = resourceService.find(id);
 		map.put("resource", resource);
+		
+		List<Resource> list = resourceService.findAll();
+		map.put("list", list);
 		return "admin/resource/form";
+	}
+	
+	@RequestMapping(value= {"/edit"}, method = RequestMethod.POST)
+	@ResponseBody
+	public JsonResult edit(Resource resource,ModelMap map){
+		try {
+			resourceService.saveOrUpdate(resource);
+		} catch (Exception e) {
+			return JsonResult.failure(e.getMessage());
+		}
+		return JsonResult.success();
 	}
 	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
@@ -62,17 +81,6 @@ public class ResourceController extends BaseController {
 			resourceService.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return JsonResult.failure(e.getMessage());
-		}
-		return JsonResult.success();
-	}
-	
-	@RequestMapping(value= {"/save"})
-	@ResponseBody
-	public JsonResult save(Resource resource,ModelMap map){
-		try {
-			resourceService.saveOrUpdate(resource);
-		} catch (Exception e) {
 			return JsonResult.failure(e.getMessage());
 		}
 		return JsonResult.success();

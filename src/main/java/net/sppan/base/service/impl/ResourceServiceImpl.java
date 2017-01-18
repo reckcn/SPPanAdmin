@@ -49,7 +49,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 		Set<Resource> roleResources = role.getResources();
 		resulTreeNodes.add(new ZtreeView(0L, null, "系统菜单", true));
 		ZtreeView node;
-		Sort sort = new Sort(Direction.ASC, "id", "parent");
+		Sort sort = new Sort(Direction.ASC, "parent", "id", "sort");
 		List<Resource> all = resourceDao.findAll(sort);
 		for (Resource resource : all) {
 			node = new ZtreeView();
@@ -83,6 +83,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 			dbResource.setIcon(resource.getIcon());
 			dbResource.setDescription(resource.getDescription());
 			dbResource.setUpdateTime(new Date());
+			dbResource.setParent(resource.getParent());
 			update(dbResource);
 		}else{
 			resource.setCreateTime(new Date());

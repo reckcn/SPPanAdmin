@@ -34,7 +34,7 @@ public class RoleController extends BaseController {
 	@RequestMapping(value = { "/list" })
 	@ResponseBody
 	public Page<Role> list() {
-		Page<Role> page = roleService.findAll(getPageRequest());
+		Page<Role> page = roleService.findAll(getPageRequest(null));
 		return page;
 	}
 	
@@ -51,6 +51,18 @@ public class RoleController extends BaseController {
 		return "admin/role/form";
 	}
 	
+	
+	@RequestMapping(value= {"/edit"},method = RequestMethod.POST)
+	@ResponseBody
+	public JsonResult edit(Role role,ModelMap map){
+		try {
+			roleService.saveOrUpdate(role);
+		} catch (Exception e) {
+			return JsonResult.failure(e.getMessage());
+		}
+		return JsonResult.success();
+	}
+	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public JsonResult delete(@PathVariable Integer id,ModelMap map) {
@@ -58,17 +70,6 @@ public class RoleController extends BaseController {
 			roleService.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return JsonResult.failure(e.getMessage());
-		}
-		return JsonResult.success();
-	}
-	
-	@RequestMapping(value= {"/save"})
-	@ResponseBody
-	public JsonResult save(Role role,ModelMap map){
-		try {
-			roleService.saveOrUpdate(role);
-		} catch (Exception e) {
 			return JsonResult.failure(e.getMessage());
 		}
 		return JsonResult.success();

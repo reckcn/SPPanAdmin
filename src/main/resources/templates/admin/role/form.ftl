@@ -40,7 +40,7 @@
                         <h5>完整验证表单</h5>
                     </div>
                     <div class="ibox-content">
-                        <form class="form-horizontal m-t" id="frm" method="post" action="${ctx!}/admin/role/save">
+                        <form class="form-horizontal m-t" id="frm" method="post" action="${ctx!}/admin/role/edit">
                         	<input type="hidden" id="id" name="id" value="${role.id}">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">角色key：</label>
@@ -122,7 +122,7 @@
     	    	$.ajax({
    	    		   type: "POST",
    	    		   dataType: "json",
-   	    		   url: "${ctx!}/admin/role/save",
+   	    		   url: "${ctx!}/admin/role/edit",
    	    		   data: $(form).serialize(),
    	    		   success: function(msg){
 	   	    			layer.msg(msg.message, {time: 2000},function(){

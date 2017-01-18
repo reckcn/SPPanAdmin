@@ -37,7 +37,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = { "/list" })
 	@ResponseBody
 	public Page<User> list() {
-		Page<User> page = userService.findAll(getPageRequest());
+		Page<User> page = userService.findAll(getPageRequest(null));
 		return page;
 	}
 	
@@ -53,6 +53,17 @@ public class UserController extends BaseController {
 		return "admin/user/form";
 	}
 	
+	@RequestMapping(value= {"/edit"} ,method = RequestMethod.POST)
+	@ResponseBody
+	public JsonResult edit(User user,ModelMap map){
+		try {
+			userService.saveOrUpdate(user);
+		} catch (Exception e) {
+			return JsonResult.failure(e.getMessage());
+		}
+		return JsonResult.success();
+	}
+	
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.POST)
 	@ResponseBody
 	public JsonResult delete(@PathVariable Integer id,ModelMap map) {
@@ -60,17 +71,6 @@ public class UserController extends BaseController {
 			userService.delete(id);
 		} catch (Exception e) {
 			e.printStackTrace();
-			return JsonResult.failure(e.getMessage());
-		}
-		return JsonResult.success();
-	}
-	
-	@RequestMapping(value= {"/save"})
-	@ResponseBody
-	public JsonResult save(User user,ModelMap map){
-		try {
-			userService.saveOrUpdate(user);
-		} catch (Exception e) {
 			return JsonResult.failure(e.getMessage());
 		}
 		return JsonResult.success();

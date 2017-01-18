@@ -40,7 +40,7 @@
                         <h5>完整验证表单</h5>
                     </div>
                     <div class="ibox-content">
-                        <form class="form-horizontal m-t" id="frm" method="post" action="${ctx!}/admin/user/save">
+                        <form class="form-horizontal m-t" id="frm" method="post" action="${ctx!}/admin/user/edit">
                         	<input type="hidden" id="id" name="id" value="${user.id}">
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">账户名：</label>
@@ -179,7 +179,7 @@
     	    	$.ajax({
    	    		   type: "POST",
    	    		   dataType: "json",
-   	    		   url: "${ctx!}/admin/user/save",
+   	    		   url: "${ctx!}/admin/user/edit",
    	    		   data: $(form).serialize(),
    	    		   success: function(msg){
 	   	    			layer.msg(msg.message, {time: 2000},function(){
