@@ -34,7 +34,7 @@ public class RoleController extends BaseController {
 	@RequestMapping(value = { "/list" })
 	@ResponseBody
 	public Page<Role> list() {
-		Page<Role> page = roleService.findAll(getPageRequest(null));
+		Page<Role> page = roleService.findAll(getPageRequest());
 		return page;
 	}
 	

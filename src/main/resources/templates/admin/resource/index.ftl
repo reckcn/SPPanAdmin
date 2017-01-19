@@ -15,22 +15,10 @@
     <link href="${ctx!}/assets/css/bootstrap.min.css?v=3.3.6" rel="stylesheet">
     <link href="${ctx!}/assets/css/font-awesome.css?v=4.4.0" rel="stylesheet">
 
-    <!-- jqgrid-->
-    <link href="${ctx!}/assets/css/plugins/jqgrid/ui.jqgrid.css?0820" rel="stylesheet">
+    <link href="${ctx!}/assets/css/plugins/bootstrap-table/bootstrap-table.min.css" rel="stylesheet">
 
     <link href="${ctx!}/assets/css/animate.css" rel="stylesheet">
     <link href="${ctx!}/assets/css/style.css?v=4.1.0" rel="stylesheet">
-
-    <style>
-        /* Additional style to fix warning dialog position */
-
-        #alertmod_table_list {
-            top: 100px !important;
-        }
-        .ui-jqgrid tr.jqgrow td {
-		text-overflow : ellipsis;
-		}
-    </style>
 
 </head>
 
@@ -49,10 +37,17 @@
                         	</@shiro.hasPermission>
                         </p>
                         <hr>
-                        <div class="jqGrid_wrapper">
-                            <table id="table_list"></table>
-                            <div id="pager_list"></div>
-                        </div>
+                        <div class="row row-lg">
+		                    <div class="col-sm-12">
+		                        <!-- Example Card View -->
+		                        <div class="example-wrap">
+		                            <div class="example">
+		                            	<table id="table_list"></table>
+		                            </div>
+		                        </div>
+		                        <!-- End Example Card View -->
+		                    </div>
+	                    </div>
                     </div>
                 </div>
             </div>
@@ -64,14 +59,14 @@
     <script src="${ctx!}/assets/js/bootstrap.min.js?v=3.3.6"></script>
 
 
+	<!-- Bootstrap table -->
+    <script src="${ctx!}/assets/js/plugins/bootstrap-table/bootstrap-table.min.js"></script>
+    <script src="${ctx!}/assets/js/plugins/bootstrap-table/bootstrap-table-mobile.min.js"></script>
+    <script src="${ctx!}/assets/js/plugins/bootstrap-table/locale/bootstrap-table-zh-CN.min.js"></script>
 
     <!-- Peity -->
     <script src="${ctx!}/assets/js/plugins/peity/jquery.peity.min.js"></script>
 
-    <!-- jqGrid -->
-    <script src="${ctx!}/assets/js/plugins/jqgrid/i18n/grid.locale-cn.js?0820"></script>
-    <script src="${ctx!}/assets/js/plugins/jqgrid/jquery.jqGrid.min.js?0820"></script>
-    
     <script src="${ctx!}/assets/js/plugins/layer/layer.min.js"></script>
 
     <!-- 自定义js -->
@@ -80,108 +75,105 @@
     <!-- Page-Level Scripts -->
     <script>
         $(document).ready(function () {
-
-            $.jgrid.defaults.styleUI = 'Bootstrap';
-            $("#table_list").jqGrid({
-            	url: "${ctx!}/admin/resource/list",
-                datatype: "json",
-                height: 450,
-                autowidth: true,
-                shrinkToFit: true,
-                rowNum: 20,
-                rowList: [10, 20, 30],
-                jsonReader: {
-             		 root: "content",   // json中代表实际模型数据的入口  
-           		     page: "number",   // json中代表当前页码的数据  
-           		     total: "totalPages", // json中代表页码总数的数据  
-           		     records: "totalElements", // json中代表数据行总数的数据  
-           		  	 id: "id",
-           		   	 repeatitems: false
-                },
-                colModel: [
-                    {
-                    	label: "ID",
-                        name: 'id',
-                        index: 'id',
-                        width: 40,
-                        align: "center"
-                    },{
-                    	label: "名称",
-                        name: 'name',
-                        index: 'name',
-                        formatter: function (cellvalue, options, rowObject) {
-                        	if(rowObject.level == 1)
-                        		return "|-" + cellvalue;
-                        	if(rowObject.level == 2)
-                        		return "　|-" + cellvalue;
-                        	else if(rowObject.level == 3)
-                        		return "　　|-" + cellvalue;
-                        }
-                    },{
-                    	label: "标识KEY",
-                        name: 'sourceKey',
-                        index: 'sourceKey'
-                    },{
-                    	label: "类型",
-                        name: 'type',
-                        index: 'type',
-                        formatter: function (cellvalue, options, rowObject) {
-                        	if(cellvalue == 0)
-                        		return '<span class="label label-info">目录</span>';
-                        	else if(cellvalue == 1)
-                        		return '<span class="label label-primary">菜单</span>';
-                        	else if(cellvalue == 2)
-                        		return '<span class="label label-warning">按钮</span>';
-                        }
-                    },{
-                    	label: "URL",
-                        name: 'sourceUrl',
-                        index: 'sourceUrl'
-                    },{
-                    	label: "层级",
-                        name: 'level',
-                        index: 'level'
-                    },{
-                    	label: "排序",
-                        name: 'sort',
-                        index: 'sort'
-                    },{
-                    	label: "图标",
-                        name: 'icon',
-                        index: 'icon'
-                    },{
-                    	label: "状态",
-                        name: 'isHide',
-                        index: 'isHide',
-                        formatter: function (cellvalue, options, rowObject) {
-                        	if(cellvalue == 0)
-                        		return '<span class="label label-info">显示</span>';
-                        	else if(cellvalue == 1)
-                        		return '<span class="label label-danger">隐藏</span>';
-                        }
-                    },{
-                        label: '操作', 
-                        name: '', 
-                        index: 'operate', 
-                        width: 250, 
-                        align: 'center',
-                        formatter: function (cellvalue, options, rowObject) {
-                        	var operateHtml = '<@shiro.hasPermission name="system:resource:add"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+rowObject.id+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
-                        	operateHtml = operateHtml + '<@shiro.hasPermission name="system:resource:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+rowObject.id+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button></@shiro.hasPermission>';
-                            return operateHtml;
-                        }
+			//初始化表格,动态从服务器加载数据  
+			$("#table_list").bootstrapTable({
+			    //使用get请求到服务器获取数据  
+			    method: "POST",
+			    //必须设置，不然request.getParameter获取不到请求参数
+			    contentType: "application/x-www-form-urlencoded",
+			    //获取数据的Servlet地址  
+			    url: "${ctx!}/admin/resource/list",
+			    //表格显示条纹  
+			    striped: true,
+			    //启动分页  
+			    pagination: true,
+			    //每页显示的记录数  
+			    pageSize: 10,
+			    //当前第几页  
+			    pageNumber: 1,
+			    //记录数可选列表  
+			    pageList: [5, 10, 15, 20, 25],
+			    //是否启用查询  
+			    search: true,
+			    //是否启用详细信息视图
+			    detailView:true,
+			    detailFormatter:detailFormatter,
+			    //表示服务端请求  
+			    sidePagination: "server",
+			    //设置为undefined可以获取pageNumber，pageSize，searchText，sortName，sortOrder  
+			    //设置为limit可以获取limit, offset, search, sort, order  
+			    queryParamsType: "undefined",
+			    //json数据解析
+			    responseHandler: function(res) {
+			        return {
+			            "rows": res.content,
+			            "total": res.totalElements
+			        };
+			    },
+			    //数据列
+			    columns: [{
+			        title: "ID",
+			        field: "id",
+			        sortable: true
+			    },{
+			        title: "资源名称",
+			        field: "name"
+			    },{
+			        title: "资源KEY",
+			        field: "sourceKey"
+			    },{
+			        title: "资源类型",
+			        field: "type",
+			        formatter: function(value,row,index){
+			        	if(value == 0)
+                    		return '<span class="label label-info">目录</span>';
+                    	else if(value == 1)
+                    		return '<span class="label label-primary">菜单</span>';
+                    	else if(value == 2)
+                    		return '<span class="label label-warning">按钮</span>';
+			        }
+			    },{
+			        title: "资源URL",
+			        field: "sourceUrl"
+			    },{
+			        title: "层级",
+			        field: "level",
+			        sortable: true
+			    },{
+			        title: "排序",
+			        field: "sort",
+			        sortable: true
+			    },{
+			        title: "图标",
+			        field: "icon"
+			    },{
+			        title: "状态",
+			        sortable: true,
+			        field: "isHide",
+                    formatter: function (value, row, index) {
+                    	if(value == 0)
+                    		return '<span class="label label-info">显示</span>';
+                    	else if(value == 1)
+                    		return '<span class="label label-danger">隐藏</span>';
                     }
-                ],
-                pager: "#pager_list",
-                viewrecords: true,
-                caption: "资源列表",
-                hidegrid: false
-            });
-            // Add responsive to jqGrid
-            $(window).bind('resize', function () {
-                var width = $('.jqGrid_wrapper').width();
-                $('#table_list').setGridWidth(width);
-            });
+			    },{
+			        title: "创建时间",
+			        field: "createTime",
+			        sortable: true
+			    },{
+			        title: "更新时间",
+			        field: "updateTime",
+			        sortable: true
+			    },{
+			        title: "操作",
+			        field: "empty",
+                    formatter: function (value, row, index) {
+                    	var operateHtml = '<@shiro.hasPermission name="system:resource:add"><button class="btn btn-primary btn-xs" type="button" onclick="edit(\''+row.id+'\')"><i class="fa fa-edit"></i>&nbsp;修改</button> &nbsp;</@shiro.hasPermission>';
+                    	operateHtml = operateHtml + '<@shiro.hasPermission name="system:resource:deleteBatch"><button class="btn btn-danger btn-xs" type="button" onclick="del(\''+row.id+'\')"><i class="fa fa-remove"></i>&nbsp;删除</button></@shiro.hasPermission>';
+                        return operateHtml;
+                    }
+			    }]
+			});
         });
         
         function edit(id){
@@ -225,6 +217,12 @@
     	    	});
        		});
         }
+        
+        function detailFormatter(index, row) {
+	        var html = [];
+	        html.push('<p><b>描述:</b> ' + row.description + '</p>');
+	        return html.join('');
+	    }
     </script>
 
     

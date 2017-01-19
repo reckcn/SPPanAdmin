@@ -9,10 +9,12 @@ import javax.servlet.http.HttpServletResponse;
 import net.sppan.base.common.DateEditor;
 import net.sppan.base.service.IUserService;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -58,12 +60,44 @@ public class BaseController {
         return null;
     }
     
+    protected PageRequest getPageRequest(){
+    	int page = 1;
+    	int size = 10;
+    	Sort sort = null;
+    	try {
+    		String sortName = request.getParameter("sortName");
+    		String sortOrder = request.getParameter("sortOrder");
+    		if(StringUtils.isNoneBlank(sortName) && StringUtils.isNoneBlank(sortOrder)){
+    			if(sortOrder.equalsIgnoreCase("desc")){
+    				sort = new Sort(Direction.DESC, sortName);
+    			}else{
+    				sort = new Sort(Direction.ASC, sortName);
+    			}
+    		}
+    		page = Integer.parseInt(request.getParameter("pageNumber")) - 1;
+    		size = Integer.parseInt(request.getParameter("pageSize"));
+    	} catch (Exception e) {
+    		e.printStackTrace();
+    	}
+    	PageRequest pageRequest = new PageRequest(page, size, sort);
+    	return pageRequest;
+    }
+    
     protected PageRequest getPageRequest(Sort sort){
     	int page = 1;
     	int size = 10;
     	try {
-    		page = Integer.parseInt(request.getParameter("page")) - 1;
-    		size = Integer.parseInt(request.getParameter("rows"));
+    		String sortName = request.getParameter("sortName");
+    		String sortOrder = request.getParameter("sortOrder");
+    		if(StringUtils.isNoneBlank(sortName) && StringUtils.isNoneBlank(sortOrder)){
+    			if(sortOrder.equalsIgnoreCase("desc")){
+    				sort.and(new Sort(Direction.DESC, sortName));
+    			}else{
+    				sort.and(new Sort(Direction.ASC, sortName));
+    			}
+			}
+    		page = Integer.parseInt(request.getParameter("pageNumber")) - 1;
+    		size = Integer.parseInt(request.getParameter("pageSize"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

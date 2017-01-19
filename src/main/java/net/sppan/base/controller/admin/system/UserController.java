@@ -37,7 +37,7 @@ public class UserController extends BaseController {
 	@RequestMapping(value = { "/list" })
 	@ResponseBody
 	public Page<User> list() {
-		Page<User> page = userService.findAll(getPageRequest(null));
+		Page<User> page = userService.findAll(getPageRequest());
 		return page;
 	}
 	

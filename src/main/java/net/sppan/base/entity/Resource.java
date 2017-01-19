@@ -12,6 +12,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.alibaba.fastjson.annotation.JSONField;
+
 import net.sppan.base.entity.support.BaseEntity;
 
 /**
@@ -86,11 +88,13 @@ public class Resource extends BaseEntity {
 	/**
 	 * 创建时间
 	 */
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date createTime;
 
 	/**
 	 * 更新时间
 	 */
+	@JSONField(format = "yyyy-MM-dd HH:mm:ss")
 	private Date updateTime;
 
 	@ManyToOne(fetch = FetchType.LAZY)

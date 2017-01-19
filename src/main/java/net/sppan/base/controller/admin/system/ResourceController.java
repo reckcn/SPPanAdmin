@@ -10,8 +10,6 @@ import net.sppan.base.vo.ZtreeView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,8 +38,7 @@ public class ResourceController extends BaseController {
 	@RequestMapping("/list")
 	@ResponseBody
 	public Page<Resource> list() {
-		Sort sort = new Sort(Direction.ASC, "id");
-		Page<Resource> page = resourceService.findAll(getPageRequest(sort));
+		Page<Resource> page = resourceService.findAll(getPageRequest());
 		return page;
 	}
 	
