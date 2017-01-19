@@ -93,7 +93,7 @@ public class BaseController {
      * @return
      */
     protected PageRequest getPageRequest(Sort sort){
-    	int page = 1;
+    	int page = 0;
     	int size = 10;
     	try {
     		String sortName = request.getParameter("sortName");
