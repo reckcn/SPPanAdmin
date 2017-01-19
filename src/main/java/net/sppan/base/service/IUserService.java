@@ -5,7 +5,7 @@ import net.sppan.base.service.support.IBaseService;
 
 /**
  * <p>
- * 服务类
+ * 用户服务类
  * </p>
  *
  * @author SPPan
@@ -20,8 +20,17 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 */
 	User findByUserName(String username);
 
+	/**
+	 * 增加或者修改用户
+	 * @param user
+	 */
 	void saveOrUpdate(User user);
 
+	/**
+	 * 给用户分配角色
+	 * @param id 用户ID
+	 * @param roleIds 角色Ids
+	 */
 	void grant(Integer id, String[] roleIds);
 
 }

@@ -10,6 +10,7 @@ import net.sppan.base.vo.ZtreeView;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +39,8 @@ public class ResourceController extends BaseController {
 	@RequestMapping("/list")
 	@ResponseBody
 	public Page<Resource> list() {
-		Page<Resource> page = resourceService.findAll(getPageRequest());
+		Specification<Resource> specification = getSpecificationLike("name");
+		Page<Resource> page = resourceService.findAll(specification,getPageRequest());
 		return page;
 	}
 	

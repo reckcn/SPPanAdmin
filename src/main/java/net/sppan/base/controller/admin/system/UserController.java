@@ -13,6 +13,7 @@ import net.sppan.base.service.IUserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,7 +38,8 @@ public class UserController extends BaseController {
 	@RequestMapping(value = { "/list" })
 	@ResponseBody
 	public Page<User> list() {
-		Page<User> page = userService.findAll(getPageRequest());
+		Specification<User> specification = getSpecificationLike("nickName");
+		Page<User> page = userService.findAll(specification, getPageRequest());
 		return page;
 	}
 	

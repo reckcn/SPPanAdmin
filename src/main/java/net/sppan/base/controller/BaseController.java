@@ -3,6 +3,10 @@ package net.sppan.base.controller;
 import java.io.IOException;
 import java.util.Date;
 
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -15,6 +19,7 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -60,6 +65,32 @@ public class BaseController {
         return null;
     }
     
+    /**
+     * 获取模糊查询条件
+     * 
+     * @param field 需要查询的字段
+     * @return
+     */
+    protected <T> Specification<T> getSpecificationLike(final String field){
+    	final String searchText = request.getParameter("searchText");
+    	if(StringUtils.isBlank(searchText)){
+    		return null;
+    	}
+    	Specification<T> specification = new Specification<T>() {
+			@Override
+			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query,
+				CriteriaBuilder cb) {
+				Predicate like = cb.like(root.get(field).as(String.class), "%"+searchText+"%");
+				return like;
+			}
+		};
+		return specification;
+    }
+    
+    /**
+     * 获取分页请求
+     * @return
+     */
     protected PageRequest getPageRequest(){
     	int page = 1;
     	int size = 10;
@@ -83,6 +114,11 @@ public class BaseController {
     	return pageRequest;
     }
     
+    /**
+     * 获取分页请求
+     * @param sort 排序条件
+     * @return
+     */
     protected PageRequest getPageRequest(Sort sort){
     	int page = 1;
     	int size = 10;

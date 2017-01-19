@@ -8,7 +8,7 @@ import net.sppan.base.vo.ZtreeView;
 
 /**
  * <p>
- * 服务类
+ * 资源服务类
  * </p>
  *
  * @author SPPan
@@ -16,8 +16,17 @@ import net.sppan.base.vo.ZtreeView;
  */
 public interface IResourceService extends IBaseService<Resource, Integer> {
 
+	/**
+	 * 获取角色的权限树
+	 * @param roleId
+	 * @return
+	 */
 	List<ZtreeView> tree(int roleId);
 
+	/**
+	 * 修改或者新增资源
+	 * @param resource
+	 */
 	void saveOrUpdate(Resource resource);
 
 }

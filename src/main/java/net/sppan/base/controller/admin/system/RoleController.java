@@ -8,6 +8,7 @@ import net.sppan.base.service.IRoleService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -34,7 +35,8 @@ public class RoleController extends BaseController {
 	@RequestMapping(value = { "/list" })
 	@ResponseBody
 	public Page<Role> list() {
-		Page<Role> page = roleService.findAll(getPageRequest());
+		Specification<Role> specification = getSpecificationLike("name");
+		Page<Role> page = roleService.findAll(specification, getPageRequest());
 		return page;
 	}
 	
