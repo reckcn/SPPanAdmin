@@ -185,7 +185,7 @@
         	      area: ['893px', '600px'],
         	      content: '${ctx!}/admin/resource/edit/' + id,
         	      end: function(index){
-        	    	  $('#table_list').trigger("reloadGrid");
+        	    	  $('#table_list').bootstrapTable("refresh");
        	    	  }
         	    });
         }
@@ -198,7 +198,7 @@
         	      area: ['893px', '600px'],
         	      content: '${ctx!}/admin/resource/add',
         	      end: function(index){
-        	    	  $('#table_list').trigger("reloadGrid");
+        	    	  $('#table_list').bootstrapTable("refresh");
        	    	  }
         	    });
         }
@@ -210,7 +210,7 @@
     	    		   url: "${ctx!}/admin/resource/delete/" + id,
     	    		   success: function(msg){
 	 	   	    			layer.msg(msg.message, {time: 2000},function(){
-	 	   	    				$('#table_list').trigger("reloadGrid");
+	 	   	    				$('#table_list').bootstrapTable("refresh");
 	 	   	    				layer.close(index);
 	 	   					});
     	    		   }

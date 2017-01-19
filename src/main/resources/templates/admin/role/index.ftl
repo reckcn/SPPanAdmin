@@ -159,7 +159,7 @@
         	      area: ['893px', '600px'],
         	      content: '${ctx!}/admin/role/edit/' + id,
         	      end: function(index){
-        	    	  $('#table_list').trigger("reloadGrid");
+        	    	  $('#table_list').bootstrapTable("refresh");
        	    	  }
         	    });
         }
@@ -172,7 +172,7 @@
         	      area: ['893px', '600px'],
         	      content: '${ctx!}/admin/role/add',
         	      end: function(index){
-        	    	  $('#table_list').trigger("reloadGrid");
+        	    	  $('#table_list').bootstrapTable("refresh");
        	    	  }
         	    });
         }
@@ -185,7 +185,7 @@
         	      area: ['893px', '600px'],
         	      content: '${ctx!}/admin/role/grant/'  + id,
         	      end: function(index){
-        	    	  $('#table_list').trigger("reloadGrid");
+        	    	  $('#table_list').bootstrapTable("refresh");
        	    	  }
         	    });
         }
@@ -197,7 +197,7 @@
     	    		   url: "${ctx!}/admin/role/delete/" + id,
     	    		   success: function(msg){
 	 	   	    			layer.msg(msg.message, {time: 2000},function(){
-	 	   	    				$('#table_list').trigger("reloadGrid");
+	 	   	    				$('#table_list').bootstrapTable("refresh");
 	 	   	    				layer.close(index);
 	 	   					});
     	    		   }
