@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sppan.base.common.DateEditor;
 import net.sppan.base.service.IUserService;
-import net.sppan.base.service.specification.SimpleSpecificationBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,6 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -60,21 +58,6 @@ public class BaseController {
             e.printStackTrace();
         }
         return null;
-    }
-    
-    /**
-     * 获取模糊查询条件
-     * 
-     * @param field 需要查询的字段
-     * @return
-     */
-    protected <T> Specification<T> getSpecificationLike(String field,String oper){
-    	String searchText = request.getParameter("searchText");
-    	if(StringUtils.isBlank(searchText)){
-    		return null;
-    	}
-		SimpleSpecificationBuilder<T> specificationBuilder = new SimpleSpecificationBuilder<T>(field,oper,searchText);
-		return specificationBuilder.generateSpecification();
     }
     
     /**

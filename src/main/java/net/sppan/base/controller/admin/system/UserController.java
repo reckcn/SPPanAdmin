@@ -10,11 +10,12 @@ import net.sppan.base.entity.Role;
 import net.sppan.base.entity.User;
 import net.sppan.base.service.IRoleService;
 import net.sppan.base.service.IUserService;
+import net.sppan.base.service.specification.SimpleSpecificationBuilder;
 import net.sppan.base.service.specification.SpecificationOperator.Operator;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -39,8 +40,12 @@ public class UserController extends BaseController {
 	@RequestMapping(value = { "/list" })
 	@ResponseBody
 	public Page<User> list() {
-		Specification<User> specification = getSpecificationLike("nickName",Operator.likeAll.name());
-		Page<User> page = userService.findAll(specification, getPageRequest());
+		SimpleSpecificationBuilder<User> builder = new SimpleSpecificationBuilder<User>();
+		String searchText = request.getParameter("searchText");
+		if(StringUtils.isNotBlank(searchText)){
+			builder.add("nickName", Operator.likeAll.name(), searchText);
+		}
+		Page<User> page = userService.findAll(builder.generateSpecification(), getPageRequest());
 		return page;
 	}
 	
