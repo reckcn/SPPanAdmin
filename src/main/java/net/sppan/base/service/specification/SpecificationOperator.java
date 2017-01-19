@@ -3,7 +3,9 @@ package net.sppan.base.service.specification;
 
 /**
  * 操作符类，这个类中存储了键值对和操作符号，另外存储了连接下一个条件的类型是and还是or
+ * <br>
  * 创建时通过 id>=7,其中id就是key,>=就是oper操作符，7就是value
+ * <br>
  * 特殊的自定义几个操作符(:表示like %v%，b:表示v%,:b表示%v)
  */
 public class SpecificationOperator {
