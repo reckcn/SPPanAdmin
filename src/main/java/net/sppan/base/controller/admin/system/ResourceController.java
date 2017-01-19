@@ -6,6 +6,7 @@ import net.sppan.base.common.JsonResult;
 import net.sppan.base.controller.BaseController;
 import net.sppan.base.entity.Resource;
 import net.sppan.base.service.IResourceService;
+import net.sppan.base.service.specification.SpecificationOperator.Operator;
 import net.sppan.base.vo.ZtreeView;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,7 +40,7 @@ public class ResourceController extends BaseController {
 	@RequestMapping("/list")
 	@ResponseBody
 	public Page<Resource> list() {
-		Specification<Resource> specification = getSpecificationLike("name");
+		Specification<Resource> specification = getSpecificationLike("name",Operator.likeAll.name());
 		Page<Resource> page = resourceService.findAll(specification,getPageRequest());
 		return page;
 	}

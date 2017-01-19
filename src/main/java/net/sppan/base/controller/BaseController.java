@@ -3,15 +3,12 @@ package net.sppan.base.controller;
 import java.io.IOException;
 import java.util.Date;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sppan.base.common.DateEditor;
 import net.sppan.base.service.IUserService;
+import net.sppan.base.service.specification.SimpleSpecificationBuilder;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,20 +68,13 @@ public class BaseController {
      * @param field 需要查询的字段
      * @return
      */
-    protected <T> Specification<T> getSpecificationLike(final String field){
-    	final String searchText = request.getParameter("searchText");
+    protected <T> Specification<T> getSpecificationLike(String field,String oper){
+    	String searchText = request.getParameter("searchText");
     	if(StringUtils.isBlank(searchText)){
     		return null;
     	}
-    	Specification<T> specification = new Specification<T>() {
-			@Override
-			public Predicate toPredicate(Root<T> root, CriteriaQuery<?> query,
-				CriteriaBuilder cb) {
-				Predicate like = cb.like(root.get(field).as(String.class), "%"+searchText+"%");
-				return like;
-			}
-		};
-		return specification;
+		SimpleSpecificationBuilder<T> specificationBuilder = new SimpleSpecificationBuilder<T>(field,oper,searchText);
+		return specificationBuilder.generateSpecification();
     }
     
     /**

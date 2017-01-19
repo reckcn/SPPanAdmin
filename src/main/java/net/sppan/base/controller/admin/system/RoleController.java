@@ -5,6 +5,7 @@ import net.sppan.base.controller.BaseController;
 import net.sppan.base.entity.Role;
 import net.sppan.base.service.IResourceService;
 import net.sppan.base.service.IRoleService;
+import net.sppan.base.service.specification.SpecificationOperator.Operator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -35,7 +36,7 @@ public class RoleController extends BaseController {
 	@RequestMapping(value = { "/list" })
 	@ResponseBody
 	public Page<Role> list() {
-		Specification<Role> specification = getSpecificationLike("name");
+		Specification<Role> specification = getSpecificationLike("name",Operator.likeAll.name());
 		Page<Role> page = roleService.findAll(specification, getPageRequest());
 		return page;
 	}
