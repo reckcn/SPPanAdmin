@@ -15,6 +15,8 @@ import net.sppan.base.service.support.impl.BaseServiceImpl;
 import net.sppan.base.vo.ZtreeView;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -43,6 +45,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 	}
 
 	@Override
+	@Cacheable(value = "resourceCache", key = "'tree' + #roleId")
 	public List<ZtreeView> tree(int roleId) {
 		List<ZtreeView> resulTreeNodes = new ArrayList<ZtreeView>();
 		Role role = roleService.find(roleId);
@@ -69,6 +72,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 	}
 
 	@Override
+	@CacheEvict(value = "resourceCache")
 	public void saveOrUpdate(Resource resource) {
 		if(resource.getId() != null){
 			Resource dbResource = find(resource.getId());
@@ -93,6 +97,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 	}
 
 	@Override
+	@CacheEvict(value = "resourceCache")
 	public void delete(Integer id) {
 		resourceDao.deleteGrant(id);
 		super.delete(id);
