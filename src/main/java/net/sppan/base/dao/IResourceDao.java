@@ -1,5 +1,7 @@
 package net.sppan.base.dao;
 
+import java.util.List;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
@@ -18,5 +20,7 @@ public interface IResourceDao extends IBaseDao<Resource, Integer> {
 	void deleteGrant(@Param("id") Integer id);
 
 	Page<Resource> findAllByNameContaining(String searchText, Pageable pageable);
+
+	List<Resource> findAllByOrderByParentAscIdAscSortAsc();
 
 }

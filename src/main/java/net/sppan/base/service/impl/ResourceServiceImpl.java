@@ -55,8 +55,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 		Set<Resource> roleResources = role.getResources();
 		resulTreeNodes.add(new ZtreeView(0L, null, "系统菜单", true));
 		ZtreeView node;
-		Sort sort = new Sort(Direction.ASC, "parent", "id", "sort");
-		List<Resource> all = resourceDao.findAll(sort);
+		List<Resource> all = resourceDao.findAllByOrderByParentAscIdAscSortAsc();
 		for (Resource resource : all) {
 			node = new ZtreeView();
 			node.setId(Long.valueOf(resource.getId()));
