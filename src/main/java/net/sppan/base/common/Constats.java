@@ -2,6 +2,8 @@ package net.sppan.base.common;
 
 public interface Constats {
 	
-	public String CURRENTUSER = "_currentUser";
+	public static final String CURRENTUSER = "_currentUser";
+	
+	public static final String RESOURCECACHENAME = "resourceCache";
 
 }

@@ -101,7 +101,7 @@
 				selectIds+=item.id+",";
 			} 
 			$.ajax({
-				url : "${ctx!}/admin/role/grant/" + ${role.id},
+				url : "${ctx!}/admin/role/grant/" + ${role.id} + "?t=Math.random()",
 				type : "post",
 				dataType : "json",
 				data : {"resourceIds":selectIds},

@@ -5,6 +5,14 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
+
+import net.sppan.base.common.Constats;
 import net.sppan.base.dao.IResourceDao;
 import net.sppan.base.dao.support.IBaseDao;
 import net.sppan.base.entity.Resource;
@@ -13,16 +21,6 @@ import net.sppan.base.service.IResourceService;
 import net.sppan.base.service.IRoleService;
 import net.sppan.base.service.support.impl.BaseServiceImpl;
 import net.sppan.base.vo.ZtreeView;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.domain.Sort.Direction;
-import org.springframework.stereotype.Service;
 
 /**
  * <p>
@@ -48,7 +46,7 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 	}
 
 	@Override
-	@Cacheable(value = "resourceCache", key = "'tree' + #roleId")
+	@Cacheable(value=Constats.RESOURCECACHENAME,key="'tree_' + #roleId")
 	public List<ZtreeView> tree(int roleId) {
 		List<ZtreeView> resulTreeNodes = new ArrayList<ZtreeView>();
 		Role role = roleService.find(roleId);
@@ -74,7 +72,6 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 	}
 
 	@Override
-	@CacheEvict(value = "resourceCache")
 	public void saveOrUpdate(Resource resource) {
 		if(resource.getId() != null){
 			Resource dbResource = find(resource.getId());
@@ -99,7 +96,6 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 	}
 
 	@Override
-	@CacheEvict(value = "resourceCache")
 	public void delete(Integer id) {
 		resourceDao.deleteGrant(id);
 		super.delete(id);
