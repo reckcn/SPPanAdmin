@@ -1,5 +1,8 @@
 package net.sppan.base.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import net.sppan.base.entity.User;
 import net.sppan.base.service.support.IBaseService;
 
@@ -32,5 +35,13 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 * @param roleIds 角色Ids
 	 */
 	void grant(Integer id, String[] roleIds);
+
+	/**
+	 * 根据关键字获取分页
+	 * @param searchText
+	 * @param pageRequest
+	 * @return
+	 */
+	Page<User> findAllByLike(String searchText, PageRequest pageRequest);
 
 }

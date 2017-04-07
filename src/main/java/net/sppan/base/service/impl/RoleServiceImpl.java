@@ -14,6 +14,8 @@ import net.sppan.base.service.support.impl.BaseServiceImpl;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -84,6 +86,14 @@ public class RoleServiceImpl extends BaseServiceImpl<Role, Integer> implements I
 		}
 		role.setResources(resources);
 		update(role);
+	}
+
+	@Override
+	public Page<Role> findAllByLike(String searchText, PageRequest pageRequest) {
+		if(StringUtils.isBlank(searchText)){
+			searchText = "";
+		}
+		return roleDao.findAllByNameContainingOrDescriptionContaining(searchText,searchText, pageRequest);
 	}
 	
 }

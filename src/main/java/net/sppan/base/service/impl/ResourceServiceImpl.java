@@ -14,9 +14,12 @@ import net.sppan.base.service.IRoleService;
 import net.sppan.base.service.support.impl.BaseServiceImpl;
 import net.sppan.base.vo.ZtreeView;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
@@ -101,6 +104,14 @@ public class ResourceServiceImpl extends BaseServiceImpl<Resource, Integer>
 	public void delete(Integer id) {
 		resourceDao.deleteGrant(id);
 		super.delete(id);
+	}
+
+	@Override
+	public Page<Resource> findAllByLike(String searchText, PageRequest pageRequest) {
+		if(StringUtils.isBlank(searchText)){
+			searchText = "";
+		}
+		return resourceDao.findAllByNameContaining(searchText, pageRequest);
 	}
 	
 }

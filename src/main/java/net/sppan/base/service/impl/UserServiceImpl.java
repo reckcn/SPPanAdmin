@@ -13,7 +13,10 @@ import net.sppan.base.service.IRoleService;
 import net.sppan.base.service.IUserService;
 import net.sppan.base.service.support.impl.BaseServiceImpl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -92,6 +95,14 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
 		}
 		user.setRoles(roles);
 		update(user);
+	}
+
+	@Override
+	public Page<User> findAllByLike(String searchText, PageRequest pageRequest) {
+		if(StringUtils.isBlank(searchText)){
+			searchText = "";
+		}
+		return userDao.findAllByNickNameContaining(searchText,pageRequest);
 	}
 	
 }

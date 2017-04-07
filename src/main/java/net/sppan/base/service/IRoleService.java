@@ -1,5 +1,8 @@
 package net.sppan.base.service;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+
 import net.sppan.base.entity.Role;
 import net.sppan.base.service.support.IBaseService;
 
@@ -25,5 +28,13 @@ public interface IRoleService extends IBaseService<Role,Integer> {
 	 * @param resourceIds 资源ids
 	 */
 	void grant(Integer id, String[] resourceIds);
+
+	/**
+	 * 根据关键字查询分页
+	 * @param searchText
+	 * @param pageRequest
+	 * @return
+	 */
+	Page<Role> findAllByLike(String searchText, PageRequest pageRequest);
 	
 }

@@ -4,16 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-import net.sppan.base.common.JsonResult;
-import net.sppan.base.controller.BaseController;
-import net.sppan.base.entity.Role;
-import net.sppan.base.entity.User;
-import net.sppan.base.service.IRoleService;
-import net.sppan.base.service.IUserService;
-import net.sppan.base.service.specification.SimpleSpecificationBuilder;
-import net.sppan.base.service.specification.SpecificationOperator.Operator;
-
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -21,7 +11,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import net.sppan.base.common.JsonResult;
+import net.sppan.base.controller.BaseController;
+import net.sppan.base.entity.Role;
+import net.sppan.base.entity.User;
+import net.sppan.base.service.IRoleService;
+import net.sppan.base.service.IUserService;
 
 @Controller
 @RequestMapping("/admin/user")
@@ -39,13 +37,16 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = { "/list" })
 	@ResponseBody
-	public Page<User> list() {
-		SimpleSpecificationBuilder<User> builder = new SimpleSpecificationBuilder<User>();
-		String searchText = request.getParameter("searchText");
-		if(StringUtils.isNotBlank(searchText)){
-			builder.add("nickName", Operator.likeAll.name(), searchText);
-		}
-		Page<User> page = userService.findAll(builder.generateSpecification(), getPageRequest());
+	public Page<User> list(
+			@RequestParam(value="searchText",required=false) String searchText
+			) {
+//		SimpleSpecificationBuilder<User> builder = new SimpleSpecificationBuilder<User>();
+//		String searchText = request.getParameter("searchText");
+//		if(StringUtils.isNotBlank(searchText)){
+//			builder.add("nickName", Operator.likeAll.name(), searchText);
+//		}
+		
+		Page<User> page = userService.findAllByLike(searchText, getPageRequest());
 		return page;
 	}
 	
