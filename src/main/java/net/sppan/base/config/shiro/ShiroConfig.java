@@ -1,7 +1,10 @@
 package net.sppan.base.config.shiro;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import javax.annotation.Resource;
 
 import org.apache.shiro.cache.CacheManager;
 import org.apache.shiro.cache.MemoryConstrainedCacheManager;
@@ -15,9 +18,15 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.Import;
 
+import net.sppan.base.service.IResourceService;
+
 @Configuration
 @Import(ShiroManager.class)
 public class ShiroConfig {
+	
+	@Resource
+	private IResourceService resourceService;
+	
 
 	@Bean(name = "realm")
 	@DependsOn("lifecycleBeanPostProcessor")
@@ -59,22 +68,27 @@ public class ShiroConfig {
 		
 		filterChainDefinitionMap.put("/admin/login", "anon");
 		
-		filterChainDefinitionMap.put("/admin/user/index", "perms[system:user:index]");
-		filterChainDefinitionMap.put("/admin/user/add", "perms[system:user:add]");
-		filterChainDefinitionMap.put("/admin/user/edit*", "perms[system:user:edit]");
-		filterChainDefinitionMap.put("/admin/user/deleteBatch", "perms[system:user:deleteBatch]");
-		filterChainDefinitionMap.put("/admin/user/grant/**", "perms[system:user:grant]");
+		List<net.sppan.base.entity.Resource> list = resourceService.findAll();
+		for (net.sppan.base.entity.Resource resource : list) {
+			filterChainDefinitionMap.put(resource.getSourceUrl(), "perms[" + resource.getSourceKey() + "]");
+		}
 		
-		filterChainDefinitionMap.put("/admin/role/index", "perms[system:role:index]");
-		filterChainDefinitionMap.put("/admin/role/add", "perms[system:role:add]");
-		filterChainDefinitionMap.put("/admin/role/edit*", "perms[system:role:edit]");
-		filterChainDefinitionMap.put("/admin/role/deleteBatch", "perms[system:role:deleteBatch]");
-		filterChainDefinitionMap.put("/admin/role/grant/**", "perms[system:role:grant]");
+//		filterChainDefinitionMap.put("/admin/user/index", "perms[system:user:index]");
+//		filterChainDefinitionMap.put("/admin/user/add", "perms[system:user:add]");
+//		filterChainDefinitionMap.put("/admin/user/edit*", "perms[system:user:edit]");
+//		filterChainDefinitionMap.put("/admin/user/deleteBatch", "perms[system:user:deleteBatch]");
+//		filterChainDefinitionMap.put("/admin/user/grant/**", "perms[system:user:grant]");
 		
-		filterChainDefinitionMap.put("/admin/resource/index", "perms[system:resource:index]");
-		filterChainDefinitionMap.put("/admin/resource/add", "perms[system:resource:add]");
-		filterChainDefinitionMap.put("/admin/resource/edit*", "perms[system:resource:edit]");
-		filterChainDefinitionMap.put("/admin/resource/deleteBatch", "perms[system:resource:deleteBatch]");
+//		filterChainDefinitionMap.put("/admin/role/index", "perms[system:role:index]");
+//		filterChainDefinitionMap.put("/admin/role/add", "perms[system:role:add]");
+//		filterChainDefinitionMap.put("/admin/role/edit*", "perms[system:role:edit]");
+//		filterChainDefinitionMap.put("/admin/role/deleteBatch", "perms[system:role:deleteBatch]");
+//		filterChainDefinitionMap.put("/admin/role/grant/**", "perms[system:role:grant]");
+		
+//		filterChainDefinitionMap.put("/admin/resource/index", "perms[system:resource:index]");
+//		filterChainDefinitionMap.put("/admin/resource/add", "perms[system:resource:add]");
+//		filterChainDefinitionMap.put("/admin/resource/edit*", "perms[system:resource:edit]");
+//		filterChainDefinitionMap.put("/admin/resource/deleteBatch", "perms[system:resource:deleteBatch]");
 		
 		filterChainDefinitionMap.put("/admin/**", "authc");
 		shiroFilter.setFilterChainDefinitionMap(filterChainDefinitionMap);
