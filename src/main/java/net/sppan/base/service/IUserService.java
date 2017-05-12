@@ -44,4 +44,13 @@ public interface IUserService extends IBaseService<User, Integer> {
 	 */
 	Page<User> findAllByLike(String searchText, PageRequest pageRequest);
 
+	/**
+	 * 修改用户密码
+	 * @param user
+	 * @param oldPassword
+	 * @param password1
+	 * @param password2
+	 */
+	void updatePwd(User user, String oldPassword, String password1, String password2);
+
 }

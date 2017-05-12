@@ -104,5 +104,22 @@ public class UserServiceImpl extends BaseServiceImpl<User, Integer> implements I
 		}
 		return userDao.findAllByNickNameContaining(searchText,pageRequest);
 	}
+
+	
+	@Override
+	public void updatePwd(User user, String oldPassword, String password1, String password2) {
+		Assert.notNull(user, "用户不能为空");
+		Assert.notNull(oldPassword, "原始密码不能为空");
+		Assert.notNull(password1, "新密码不能为空");
+		Assert.notNull(password2, "重复密码不能为空");
+		
+		User dbUser = userDao.findByUserName(user.getUserName());
+		Assert.notNull(dbUser, "用户不存在");
+		
+		Assert.isTrue(user.getPassword().equals(MD5Utils.md5(oldPassword)), "原始密码不正确");;
+		Assert.isTrue(password1.equals(password2), "两次密码不一致");
+		dbUser.setPassword(MD5Utils.md5(password1));
+		userDao.saveAndFlush(dbUser);
+	}
 	
 }

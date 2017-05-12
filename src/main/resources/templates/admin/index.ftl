@@ -95,6 +95,14 @@
                             </a>
                             <ul class="dropdown-menu dropdown-alerts">
                                 <li>
+                                    <a onclick="updatePwd()">
+                                        <div>
+                                            <i class="fa fa-refresh"></i> 修改密码
+                                            <span class="pull-right text-muted small"><@shiro.principal type="net.sppan.base.entity.User" property="userName"/></span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
                                     <a href="${ctx!}/admin/logout">
                                         <div>
                                             <i class="fa fa-remove"></i> 注销
@@ -124,6 +132,21 @@
     <!-- 自定义js -->
     <script src="${ctx!}/assets/js/hAdmin.js?v=4.1.0"></script>
     <script type="text/javascript" src="${ctx!}/assets/js/index.js"></script>
+    <script type="text/javascript">
+    function updatePwd(){
+		layer.open({
+	      type: 2,
+	      title: '修改密码',
+	      shadeClose: true,
+	      shade: false,
+	      area: ['893px', '600px'],
+	      content: '${ctx!}/admin/user/updatePwd',
+	      end: function(index){
+	    	  window.location.reload();
+	    	 }
+	    });
+	}
+</script>
 </body>
 
 </html>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
@@ -107,6 +109,28 @@ public class UserController extends BaseController {
 	public JsonResult grant(@PathVariable Integer id,String[] roleIds, ModelMap map) {
 		try {
 			userService.grant(id,roleIds);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return JsonResult.failure(e.getMessage());
+		}
+		return JsonResult.success();
+	}
+	
+	@RequestMapping(value = "/updatePwd", method = RequestMethod.GET)
+	public String updatePwd() {
+		return "admin/user/updatePwd";
+	}
+	
+	@RequestMapping(value = "/updatePwd", method = RequestMethod.POST)
+	@ResponseBody
+	public JsonResult updatePwd(String oldPassword, String password1, String password2) {
+		try {
+			Subject subject = SecurityUtils.getSubject();
+			Object principal = subject.getPrincipal();
+			if(principal== null){
+				return JsonResult.failure("您尚未登录");
+			}
+			userService.updatePwd((User)principal, oldPassword, password1, password2);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return JsonResult.failure(e.getMessage());
