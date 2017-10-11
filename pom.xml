@@ -3,8 +3,14 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>net.sppan</groupId>
-	<artifactId>base</artifactId>
+	<artifactId>SPPanAdmin</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<repositories>
+		<repository>
+			<id>nexus-aliyun</id>
+			<url>http://maven.aliyun.com/nexus/content/groups/public</url>
+		</repository>
+	</repositories>
 
 	<!-- Inherit defaults from Spring Boot -->
 	<parent>
